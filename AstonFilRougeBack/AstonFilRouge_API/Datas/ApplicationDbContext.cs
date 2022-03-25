@@ -12,5 +12,10 @@ namespace AstonFilRouge_API.Datas
         public DbSet<Reservation> ReservationList { get; set; }
         public DbSet<Subscription> SubscriptionList { get; set; }
         public DbSet<User> UserList { get; set; }
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+
+        }
     }
 }
