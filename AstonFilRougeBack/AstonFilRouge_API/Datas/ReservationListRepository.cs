@@ -1,0 +1,50 @@
+﻿using AstonFilRouge_API.Models;
+
+namespace AstonFilRouge_API.Datas
+{
+    public class ReservationListRepository : BaseRepository, IRepository<Reservation>
+    {
+        public ReservationListRepository(ApplicationDbContext context) : base(context)
+        {
+        }
+
+        public Reservation Add(Reservation entity)
+        {
+            _context.ReservationList.Add(entity);
+
+            if (_context.SaveChanges() > 0) return GetById(entity.Id);
+            return null;
+        }
+
+        public bool Delete(int id)
+        {
+            _context.ReservationList.Remove(GetById(id));
+            if (_context.SaveChanges() > 0) return true;
+            return false;
+        }
+
+        public IEnumerable<Reservation> GetAll()
+        {
+            return _context.ReservationList;
+        }
+
+        public Reservation GetById(int id)
+        {
+            return _context.ReservationList.FirstOrDefault(x => x.Id == id);
+        }
+
+        public Reservation Update(Reservation entity)
+        {
+            Reservation found = GetById(entity.Id);
+            if (found != null)
+            {
+                found.ClientId = entity.ClientId;
+
+                _context.ReservationList.Update(found);
+            }
+
+            if (_context.SaveChanges() > 0) return GetById(entity.Id);
+            return null;
+        }
+    }
+}
