@@ -1,0 +1,50 @@
+﻿using AstonFilRouge_API.Models;
+
+namespace AstonFilRouge_API.Datas
+{
+    public class CourseListRepository : BaseRepository, IRepository<Course>
+    {
+        public CourseListRepository(ApplicationDbContext context) : base(context)
+        {
+        }
+
+        public Course Add(Course entity)
+        {
+            _context.CourseList.Add(entity);
+
+            if (_context.SaveChanges() > 0) return GetById(entity.Id);
+            return null;
+        }
+
+        public bool Delete(int id)
+        {
+            _context.CourseList.Remove(GetById(id));
+            if (_context.SaveChanges() > 0) return true;
+            return false;
+        }
+
+        public IEnumerable<Course> GetAll()
+        {
+            return _context.CourseList;
+        }
+
+        public Course GetById(int id)
+        {
+            return _context.CourseList.FirstOrDefault(x => x.Id == id);
+        }
+
+        public Course Update(Course entity)
+        {
+            Course found = GetById(entity.Id);
+            if (found != null)
+            {
+                found = entity;
+
+                _context.CourseList.Update(found);
+            }
+
+            if (_context.SaveChanges() > 0) return GetById(entity.Id);
+            return null;
+        }
+    }
+}
