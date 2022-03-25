@@ -38,7 +38,15 @@ namespace AstonFilRouge_API.Datas
             User found = GetById(entity.Id);
             if (found != null)
             {
+                found.FirstName = entity.FirstName;
+                found.LastName = entity.LastName;
                 found.Email = entity.Email;
+                found.Club = entity.Club;
+                found.UpdateDate = DateTime.Now ;
+                found.Role= entity.Role;
+                found.PhoneNumber = entity.PhoneNumber;
+                found.Description = entity.Description;
+                found.Address = entity.Address;
                 
 
                 _context.UserList.Update(found);
