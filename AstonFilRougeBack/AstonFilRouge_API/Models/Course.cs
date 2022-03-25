@@ -12,7 +12,7 @@ namespace AstonFilRouge_API.Models
         public CourseStatus Status { get; set; }
         public int ClubId { get; set; }
         public Address Address { get; set; }
-        public Coach CoachId { get; set; }
+        public int CoachId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     }
