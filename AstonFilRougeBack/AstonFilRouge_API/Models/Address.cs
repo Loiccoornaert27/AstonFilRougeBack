@@ -1,7 +1,10 @@
-﻿namespace AstonFilRouge_API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AstonFilRouge_API.Models
 {
     public class Address
     {
+        [Key]
         public int Id { get; set; }
         public int Num { get; set; }
         public string Street { get; set; }

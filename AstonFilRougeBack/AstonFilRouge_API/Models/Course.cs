@@ -1,9 +1,12 @@
-﻿using static AstonFilRouge_API.Enums.Enumerables;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using static AstonFilRouge_API.Enums.Enumerables;
 
 namespace AstonFilRouge_API.Models
 {
     public class Course
     {
+        [Key]
         public int Id { get; set; }
         public CourseType Type { get; set; }
         public DateTime Date { get; set; }
@@ -11,6 +14,8 @@ namespace AstonFilRouge_API.Models
         public int EndHour { get; set; }  
         public CourseStatus Status { get; set; }
         public int ClubId { get; set; }
+        public int AddressId { get; set; }
+        [ForeignKey("AddressId")]
         public Address Address { get; set; }
         public int CoachId { get; set; }
         public string Name { get; set; }

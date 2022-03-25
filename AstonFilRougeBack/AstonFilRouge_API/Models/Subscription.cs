@@ -1,9 +1,11 @@
-﻿using static AstonFilRouge_API.Enums.Enumerables;
+﻿using System.ComponentModel.DataAnnotations;
+using static AstonFilRouge_API.Enums.Enumerables;
 
 namespace AstonFilRouge_API.Models
 {
     public class Subscription
     {
+        [Key]
         public int Id { get; set; }
         public int ClientId { get; set; }
         public int ClubId { get; set; }
