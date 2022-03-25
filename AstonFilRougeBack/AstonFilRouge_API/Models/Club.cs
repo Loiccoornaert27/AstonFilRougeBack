@@ -8,7 +8,6 @@ namespace AstonFilRouge_API.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-
         public int AddressId { get; set; }
 
         [ForeignKey("AddressId")]
