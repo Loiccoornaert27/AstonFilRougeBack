@@ -76,7 +76,8 @@ namespace AstonFilRouge_API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Type = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndHour = table.Column<int>(type: "int", nullable: false),
+                    StartHour = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndHour = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     ClubId = table.Column<int>(type: "int", nullable: false),
                     CoachId = table.Column<int>(type: "int", nullable: false),
@@ -151,6 +152,27 @@ namespace AstonFilRouge_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AuthList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuthList", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AuthList_UserList_UserId",
+                        column: x => x.UserId,
+                        principalTable: "UserList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ReservationList",
                 columns: table => new
                 {
@@ -170,27 +192,11 @@ namespace AstonFilRouge_API.Migrations
                         principalTable: "CourseList",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AuthList",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuthList", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AuthList_UserList_UserId",
-                        column: x => x.UserId,
+                        name: "FK_ReservationList_UserList_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "UserList",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -212,6 +218,11 @@ namespace AstonFilRouge_API.Migrations
                 name: "IX_OpeningDayList_ClubId",
                 table: "OpeningDayList",
                 column: "ClubId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReservationList_ClientId",
+                table: "ReservationList",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ReservationList_CourseId",
@@ -244,10 +255,10 @@ namespace AstonFilRouge_API.Migrations
                 name: "SubscriptionList");
 
             migrationBuilder.DropTable(
-                name: "UserList");
+                name: "CourseList");
 
             migrationBuilder.DropTable(
-                name: "CourseList");
+                name: "UserList");
 
             migrationBuilder.DropTable(
                 name: "ClubList");

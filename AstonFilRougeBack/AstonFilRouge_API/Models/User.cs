@@ -15,7 +15,7 @@ namespace AstonFilRouge_API.Models
         [Required]
         public string Password { get; set; }
         [Required]
-        public int AdressId { get; set; }
+        public int AddressId { get; set; }
         [ForeignKey("AddressId")]
         public virtual Address? Address { get; set; }
         [Required]
