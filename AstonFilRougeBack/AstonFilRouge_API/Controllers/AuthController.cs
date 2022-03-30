@@ -45,6 +45,25 @@ namespace AstonFilRouge_API.Controllers
                     expiresAt = expiresAt,
                 });
             }
+            ModelState.AddModelError("Unauthorized", "You are not authorized to access the endpoint");
+            return Unauthorized(ModelState);
+
+        }
+        private string CreateToken(IEnumerable<Claim> claims, DateTime expiresAt)
+        {
+            var secretKey = Encoding.ASCII.GetBytes(_config["JWT:SecretKey"]);
+
+            var jwt = new JwtSecurityToken(
+                claims: claims,
+                notBefore: DateTime.UtcNow,
+                expires: expiresAt,
+                audience: _config["JWT:ValidAudience"],
+                issuer: _config["JWT:ValidIssuer"],
+                signingCredentials: new SigningCredentials(
+                    new SymmetricSecurityKey(secretKey),
+                    SecurityAlgorithms.HmacSha256Signature));
+
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
     }
 }

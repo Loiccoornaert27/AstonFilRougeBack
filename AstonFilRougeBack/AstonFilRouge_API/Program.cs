@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
     .LogTo(Console.WriteLine, LogLevel.Information));
+builder.Services.AddScoped<IRepository<Auth>, AuthListRepository>();
 builder.Services.AddScoped<IRepository<User>, UserListRepository>();
 
 builder.Services.AddCors(options => {
