@@ -43,7 +43,6 @@ namespace AstonFilRouge_API.Datas
                 found.Type = entity.Type;
                 found.ClubId = entity.ClubId;
                 found.CoachId = entity.CoachId;
-                found.AddressId = entity.AddressId;
                 found.Date=entity.Date;
                 found.EndHour = entity.EndHour;
                 found.Status = entity.Status;

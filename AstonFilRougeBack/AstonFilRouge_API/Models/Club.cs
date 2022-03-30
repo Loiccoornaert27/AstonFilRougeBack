@@ -16,7 +16,8 @@ namespace AstonFilRouge_API.Models
         public int Capacity { get; set; }
         public int Inside { get; set; }
         public List<OpeningDay> OpeningWeekDays { get; set; }
-        public List<DateTime> ExceptionnalClosure { get; set; }
+        [NotMapped]
+        public IEnumerable<DateTime> ExceptionnalClosure { get; set; }
         public List<Course> Planning { get; set; }
 
     }
