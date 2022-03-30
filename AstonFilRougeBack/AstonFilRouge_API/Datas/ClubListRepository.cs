@@ -39,6 +39,13 @@ namespace AstonFilRouge_API.Datas
             if (found != null)
             {
                 found.Name = entity.Name;
+                found.AddressId = entity.AddressId;
+                found.PhoneNumber = entity.PhoneNumber;
+                found.OpeningWeekDays = entity.OpeningWeekDays;
+                found.ExceptionnalClosure = entity.ExceptionnalClosure;
+                found.Capacity = entity.Capacity;
+                found.Inside = entity.Inside;
+                found.Planning = entity.Planning;
 
                 _context.ClubList.Update(found);
             }
