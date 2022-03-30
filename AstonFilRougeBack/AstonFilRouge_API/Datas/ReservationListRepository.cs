@@ -39,6 +39,9 @@ namespace AstonFilRouge_API.Datas
             if (found != null)
             {
                 found.ClientId = entity.ClientId;
+                found.CourseId = entity.CourseId;
+                found.Status = entity.Status;
+                found.RequestDate = entity.RequestDate;
 
                 _context.ReservationList.Update(found);
             }
