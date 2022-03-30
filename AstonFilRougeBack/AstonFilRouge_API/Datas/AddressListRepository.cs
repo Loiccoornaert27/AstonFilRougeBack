@@ -38,7 +38,11 @@ namespace AstonFilRouge_API.Datas
             Address found = GetById(entity.Id);
             if (found != null)
             {
+                found.Num= entity.Num;
                 found.Street = entity.Street;
+                found.Complement = entity.Complement;
+                found.ZipCode = entity.ZipCode;
+                found.City = entity.City;
 
                 _context.AddressList.Update(found);
             }
