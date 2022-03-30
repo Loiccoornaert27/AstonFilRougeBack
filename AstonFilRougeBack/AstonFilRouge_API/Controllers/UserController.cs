@@ -44,5 +44,24 @@ namespace AstonFilRouge_API.Controllers
                 User = found
             });
         }
+
+        [HttpPost("/user")]
+        public IActionResult CreateNewUser([FromBody] User newUser)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (_userRepo.Add(newUser) != null)
+            {
+                return Ok(new
+                {
+                    Mesage = "New user added with success"
+                });
+            }
+            else
+            {
+                ModelState.AddModelError("Add User", "Something went wrong when adding the user to the database");
+                return BadRequest(ModelState);
+            }
+        }
+
     }
 }

@@ -8,16 +8,25 @@ namespace AstonFilRouge_API.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public CourseType Type { get; set; }
+        [Required]
         public DateTime Date { get; set; }
-        public int StartHour { get => Date.Hour; }
-        public int EndHour { get; set; }  
+        [Required]
+        public DateTime StartHour { get; set; }
+        [Required]
+        public DateTime EndHour { get; set; }
+        [Required]
         public CourseStatus Status { get; set; }
+        [Required]
         public int ClubId { get; set; }
         [ForeignKey("ClubId")]
         public virtual Club Club { get; set; }
+        [Required]
         public int CoachId { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
     }
 }

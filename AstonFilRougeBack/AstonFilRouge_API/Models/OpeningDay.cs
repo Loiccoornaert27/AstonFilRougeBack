@@ -6,8 +6,11 @@ namespace AstonFilRouge_API.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public DateTime Day;
+        [Required]
         public int OpeningHour { get; set; }
+        [Required]
         public int ClosingHour { get; set; }
     }
 }
