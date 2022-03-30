@@ -38,7 +38,16 @@ namespace AstonFilRouge_API.Datas
             Course found = GetById(entity.Id);
             if (found != null)
             {
-                found = entity;
+                found.Name = entity.Name;
+                found.Description = entity.Description;
+                found.Type = entity.Type;
+                found.ClubId = entity.ClubId;
+                found.CoachId = entity.CoachId;
+                found.AddressId = entity.AddressId;
+                found.Date=entity.Date;
+                found.EndHour = entity.EndHour;
+                found.Status = entity.Status;
+                
 
                 _context.CourseList.Update(found);
             }
