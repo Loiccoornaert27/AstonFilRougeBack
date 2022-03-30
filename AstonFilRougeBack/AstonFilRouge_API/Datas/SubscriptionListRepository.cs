@@ -39,6 +39,11 @@ namespace AstonFilRouge_API.Datas
             if (found != null)
             {
                 found.ClientId = entity.ClientId;
+                found.ClubId = entity.ClubId;
+                found.Price = entity.Price;
+                found.BillingPeriod = entity.BillingPeriod;
+                found.EndCommitmentDate = entity.EndCommitmentDate;
+                found.EndDate = entity.EndDate;
 
                 _context.SubscriptionList.Update(found);
             }
