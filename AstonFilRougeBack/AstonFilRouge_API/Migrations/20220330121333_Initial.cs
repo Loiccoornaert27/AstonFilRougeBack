@@ -27,21 +27,6 @@ namespace AstonFilRouge_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuthList",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuthList", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SubscriptionList",
                 columns: table => new
                 {
@@ -186,6 +171,32 @@ namespace AstonFilRouge_API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "AuthList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuthList", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AuthList_UserList_UserId",
+                        column: x => x.UserId,
+                        principalTable: "UserList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuthList_UserId",
+                table: "AuthList",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClubList_AddressId",

@@ -75,6 +75,8 @@ namespace AstonFilRouge_API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("AuthList");
                 });
 
@@ -297,6 +299,17 @@ namespace AstonFilRouge_API.Migrations
                     b.HasIndex("ClubId");
 
                     b.ToTable("UserList");
+                });
+
+            modelBuilder.Entity("AstonFilRouge_API.Models.Auth", b =>
+                {
+                    b.HasOne("AstonFilRouge_API.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AstonFilRouge_API.Models.Club", b =>
