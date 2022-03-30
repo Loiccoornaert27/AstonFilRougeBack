@@ -39,6 +39,8 @@ namespace AstonFilRouge_API.Datas
             if (found != null)
             {
                 found.Day = entity.Day;
+                found.OpeningHour = entity.OpeningHour;
+                found.ClosingHour = entity.ClosingHour;
 
                 _context.OpeningDayList.Update(found);
             }
