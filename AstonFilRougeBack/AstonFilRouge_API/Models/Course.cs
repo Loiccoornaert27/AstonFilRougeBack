@@ -14,9 +14,8 @@ namespace AstonFilRouge_API.Models
         public int EndHour { get; set; }  
         public CourseStatus Status { get; set; }
         public int ClubId { get; set; }
-        public int AddressId { get; set; }
-        [ForeignKey("AddressId")]
-        public Address Address { get; set; }
+        [ForeignKey("ClubId")]
+        public virtual Club Club { get; set; }
         public int CoachId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
