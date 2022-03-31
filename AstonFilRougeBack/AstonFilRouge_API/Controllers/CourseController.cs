@@ -53,7 +53,7 @@ namespace AstonFilRouge_API.Controllers
             {
                 return Ok(new
                 {
-                    Mesage = "Nouvelle séance ajoutée avec succès."
+                    Message = "Nouvelle séance ajoutée avec succès."
                 });
             }
             else
