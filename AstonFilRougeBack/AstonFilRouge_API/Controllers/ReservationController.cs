@@ -44,7 +44,7 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPost("/reservationList")]
-        public IActionResult CreateNewReservation([FromBody] Reservation newResa)
+        public IActionResult CreateNewReservation([FromForm] Reservation newResa)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (_resaRepo.Add(newResa) != null)
@@ -82,7 +82,7 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPatch("/reservationList/{id}")]
-        public IActionResult EditReservation(int id, [FromBody] Reservation editedResa)
+        public IActionResult EditReservation(int id, [FromForm] Reservation editedResa)
         {
             var found = _resaRepo.GetById(id);
             if (found == null) return NotFound(new

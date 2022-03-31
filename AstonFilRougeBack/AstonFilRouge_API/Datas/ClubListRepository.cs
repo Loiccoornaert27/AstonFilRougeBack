@@ -42,7 +42,7 @@ namespace AstonFilRouge_API.Datas
                 found.AddressId = entity.AddressId;
                 found.PhoneNumber = entity.PhoneNumber;
                 found.OpeningWeekDays = entity.OpeningWeekDays;
-                found.ExceptionnalClosure = entity.ExceptionnalClosure;
+                //found.ExceptionnalClosure = entity.ExceptionnalClosure;
                 found.Capacity = entity.Capacity;
                 found.Inside = entity.Inside;
                 found.Planning = entity.Planning;

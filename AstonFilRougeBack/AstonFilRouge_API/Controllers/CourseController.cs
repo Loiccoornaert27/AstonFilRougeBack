@@ -46,7 +46,7 @@ namespace AstonFilRouge_API.Controllers
 
         [HttpPost("/courseList")]
         [Authorize(Roles = "Coach")]
-        public IActionResult CreateNewCourse([FromBody] Course newCourse)
+        public IActionResult CreateNewCourse([FromForm] Course newCourse)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (_courseRepo.Add(newCourse) != null)
@@ -85,7 +85,7 @@ namespace AstonFilRouge_API.Controllers
 
         [HttpPatch("/clubList/{id}")]
         [Authorize(Roles = "Admin")]
-        public IActionResult EditClub(int id, [FromBody] Course editedCourse)
+        public IActionResult EditClub(int id, [FromForm] Course editedCourse)
         {
             var found = _courseRepo.GetById(id);
             if (found == null) return NotFound(new

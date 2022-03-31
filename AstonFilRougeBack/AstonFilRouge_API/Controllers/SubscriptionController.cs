@@ -45,7 +45,7 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPost("/subscriptionList")]
-        public IActionResult CreateNewSubscription([FromBody] Subscription newSub)
+        public IActionResult CreateNewSubscription([FromForm] Subscription newSub)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (_subRepo.Add(newSub) != null)
@@ -83,7 +83,7 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPatch("/subscriptionList/{id}")]
-        public IActionResult EditSubscription(int id, [FromBody] Subscription editedSub)
+        public IActionResult EditSubscription(int id, [FromForm] Subscription editedSub)
         {
             var found = _subRepo.GetById(id);
             if (found == null) return NotFound(new

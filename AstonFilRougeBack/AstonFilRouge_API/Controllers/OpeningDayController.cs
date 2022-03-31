@@ -46,7 +46,7 @@ namespace AstonFilRouge_API.Controllers
 
         [HttpPost("/openingDayList")]
         [Authorize(Roles = "Admin")]
-        public IActionResult CreateNewOpeningDay([FromBody] OpeningDay newOD)
+        public IActionResult CreateNewOpeningDay([FromForm] OpeningDay newOD)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (_odRepo.Add(newOD) != null)
@@ -85,7 +85,7 @@ namespace AstonFilRouge_API.Controllers
 
         [HttpPatch("/openingDayList/{id}")]
         [Authorize(Roles = "Admin")]
-        public IActionResult EditOpeningDay(int id, [FromBody] OpeningDay editedOD)
+        public IActionResult EditOpeningDay(int id, [FromForm] OpeningDay editedOD)
         {
             var found = _odRepo.GetById(id);
             if (found == null) return NotFound(new

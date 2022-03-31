@@ -44,7 +44,7 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPost("/address")]
-        public IActionResult CreateNewAddress([FromBody] Address newAddress)
+        public IActionResult CreateNewAddress([FromForm] Address newAddress)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (_addressRepo.Add(newAddress) != null)
@@ -82,7 +82,7 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPatch("/addressList/{id}")]
-        public IActionResult EditAddress(int id,[FromBody] Address editedAddress)
+        public IActionResult EditAddress(int id,[FromForm] Address editedAddress)
         {
             var found = _addressRepo.GetById(id);
             if (found == null) return NotFound(new
