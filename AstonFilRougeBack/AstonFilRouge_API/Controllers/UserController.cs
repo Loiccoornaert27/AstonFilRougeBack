@@ -53,7 +53,7 @@ namespace AstonFilRouge_API.Controllers
             {
                 return Ok(new
                 {
-                    Mesage = "New user added with success"
+                    Message = "New user added with success"
                 });
             }
             else

@@ -37,8 +37,8 @@ namespace AstonFilRouge_API.Migrations
                     Price = table.Column<int>(type: "int", nullable: false),
                     BillingPeriod = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndCommitmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EndCommitmentDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,7 +55,7 @@ namespace AstonFilRouge_API.Migrations
                     AddressId = table.Column<int>(type: "int", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Capacity = table.Column<int>(type: "int", nullable: false),
-                    Inside = table.Column<int>(type: "int", nullable: false)
+                    Inside = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -129,11 +129,11 @@ namespace AstonFilRouge_API.Migrations
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
-                    Job = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Job = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClubId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -149,27 +149,6 @@ namespace AstonFilRouge_API.Migrations
                         column: x => x.ClubId,
                         principalTable: "ClubList",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AuthList",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuthList", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AuthList_UserList_UserId",
-                        column: x => x.UserId,
-                        principalTable: "UserList",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -198,11 +177,6 @@ namespace AstonFilRouge_API.Migrations
                         principalTable: "UserList",
                         principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AuthList_UserId",
-                table: "AuthList",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClubList_AddressId",
@@ -242,9 +216,6 @@ namespace AstonFilRouge_API.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AuthList");
-
             migrationBuilder.DropTable(
                 name: "OpeningDayList");
 

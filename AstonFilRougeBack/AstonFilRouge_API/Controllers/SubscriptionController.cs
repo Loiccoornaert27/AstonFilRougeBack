@@ -52,7 +52,7 @@ namespace AstonFilRouge_API.Controllers
             {
                 return Ok(new
                 {
-                    Mesage = "Nouvel abonnement ajouté avec succès."
+                    Message = "Nouvel abonnement ajouté avec succès."
                 });
             }
             else
