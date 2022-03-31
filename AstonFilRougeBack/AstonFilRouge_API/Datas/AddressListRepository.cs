@@ -33,9 +33,9 @@ namespace AstonFilRouge_API.Datas
             return _context.AddressList.FirstOrDefault(x => x.Id == id);
         }
 
-        public Address Update(Address entity)
+        public Address Update(int id, Address entity)
         {
-            Address found = GetById(entity.Id);
+            Address found = GetById(id);
             if (found != null)
             {
                 found.Num= entity.Num;

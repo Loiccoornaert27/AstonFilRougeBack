@@ -33,9 +33,9 @@ namespace AstonFilRouge_API.Datas
             return _context.ClubList.FirstOrDefault(x => x.Id == id);
         }
 
-        public Club Update(Club entity)
+        public Club Update(int id, Club entity)
         {
-            Club found = GetById(entity.Id);
+            Club found = GetById(id);
             if (found != null)
             {
                 found.Name = entity.Name;

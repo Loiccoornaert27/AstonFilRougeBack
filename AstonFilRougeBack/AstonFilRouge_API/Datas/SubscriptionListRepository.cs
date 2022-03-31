@@ -33,9 +33,9 @@ namespace AstonFilRouge_API.Datas
             return _context.SubscriptionList.FirstOrDefault(x => x.Id == id);
         }
 
-        public Subscription Update(Subscription entity)
+        public Subscription Update(int id, Subscription entity)
         {
-            Subscription found = GetById(entity.Id);
+            Subscription found = GetById(id);
             if (found != null)
             {
                 found.ClientId = entity.ClientId;

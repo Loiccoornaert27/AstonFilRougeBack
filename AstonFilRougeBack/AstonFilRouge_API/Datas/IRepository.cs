@@ -5,7 +5,7 @@
         public T Add(T entity);
         public T GetById(int id);
         public IEnumerable<T> GetAll();
-        public T Update(T entity);
+        public T Update(int id, T entity);
         public bool Delete(int id);
     }
 }

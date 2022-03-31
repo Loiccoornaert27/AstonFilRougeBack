@@ -33,9 +33,9 @@ namespace AstonFilRouge_API.Datas
             return _context.ReservationList.FirstOrDefault(x => x.Id == id);
         }
 
-        public Reservation Update(Reservation entity)
+        public Reservation Update(int id, Reservation entity)
         {
-            Reservation found = GetById(entity.Id);
+            Reservation found = GetById(id);
             if (found != null)
             {
                 found.ClientId = entity.ClientId;

@@ -33,9 +33,9 @@ namespace AstonFilRouge_API.Datas
             return _context.CourseList.FirstOrDefault(x => x.Id == id);
         }
 
-        public Course Update(Course entity)
+        public Course Update(int id,Course entity)
         {
-            Course found = GetById(entity.Id);
+            Course found = GetById(id);
             if (found != null)
             {
                 found.Name = entity.Name;

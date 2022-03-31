@@ -33,9 +33,9 @@ namespace AstonFilRouge_API.Datas
             return _context.UserList.FirstOrDefault(x => x.Id == id);
         }
 
-        public User Update(User entity)
+        public User Update(int id,User entity)
         {
-            User found = GetById(entity.Id);
+            User found = GetById(id);
             if (found != null)
             {
                 found.FirstName = entity.FirstName;
