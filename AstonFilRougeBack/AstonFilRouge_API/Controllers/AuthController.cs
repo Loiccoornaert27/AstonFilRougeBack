@@ -16,19 +16,19 @@ namespace AstonFilRouge_API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IRepository<Auth> _authRepo;
+        private readonly IRepository<User> _userRepo;
         private readonly IConfiguration _config;
 
-        public AuthController(IRepository<Auth> authRepo, IConfiguration config)
+        public AuthController(IRepository<User> UserRepo, IConfiguration config)
         {
-            _authRepo = authRepo;
+            _userRepo = UserRepo;
             _config = config;
         }
 
         [HttpPost("/authenticate")]
-        public IActionResult Authenticate([FromBody] Auth auth)
+        public IActionResult Authenticate([FromBody] User auth)
         {
-            Auth? found = _authRepo.GetAll().ToList().FirstOrDefault(x => x.Email == auth.Email && x.Password== auth.Password);
+            User? found = _userRepo.GetAll().ToList().FirstOrDefault(x => x.Email == auth.Email && x.Password== auth.Password);
             if (found != null)
             {
                 var claimList = new List<Claim>()

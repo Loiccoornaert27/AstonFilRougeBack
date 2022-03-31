@@ -5,7 +5,6 @@ namespace AstonFilRouge_API.Datas
 {
     public class ApplicationDbContext : DbContext 
     {
-        public DbSet<Auth> AuthList { get; set; }
         public DbSet<Address> AddressList { get; set; }
         public DbSet<Club> ClubList { get; set; }
         public DbSet<Course> CourseList { get; set; }
