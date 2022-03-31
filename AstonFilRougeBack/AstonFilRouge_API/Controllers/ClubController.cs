@@ -53,7 +53,7 @@ namespace AstonFilRouge_API.Controllers
             {
                 return Ok(new
                 {
-                    Mesage = "Nouveau club ajouté avec succès."
+                    Message = "Nouveau club ajouté avec succès."
                 });
             }
             else

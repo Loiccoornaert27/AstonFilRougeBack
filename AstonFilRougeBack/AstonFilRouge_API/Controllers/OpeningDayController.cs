@@ -53,7 +53,7 @@ namespace AstonFilRouge_API.Controllers
             {
                 return Ok(new
                 {
-                    Mesage = "Journée d'ouverture ajoutée avec succès."
+                    Message = "Journée d'ouverture ajoutée avec succès."
                 });
             }
             else
