@@ -83,31 +83,31 @@ namespace AstonFilRouge_API.Controllers
             }
         }
 
-        [HttpPatch("/clubList/{id}")]
-        [Authorize(Roles ="Admin")]
-        public IActionResult EditClub(int id, [FromBody] Club editedClub)
-        {
-            var found = _clubRepo.GetById(id);
-            if (found == null) return NotFound(new
-            {
-                Message = "Aucun club avec cet id trouvé."
-            });
+        //[HttpPatch("/clubList/{id}")]
+        //[Authorize(Roles ="Admin")]
+        //public IActionResult EditClub(int id, [FromBody] Club editedClub)
+        //{
+        //    var found = _clubRepo.GetById(id);
+        //    if (found == null) return NotFound(new
+        //    {
+        //        Message = "Aucun club avec cet id trouvé."
+        //    });
 
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+        //    if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if (_clubRepo.Update(id, editedClub) != null)
-            {
-                return Ok(new
-                {
-                    Message = "Club modifié avec succès.",
-                    Club = _clubRepo.GetById(id)
-                });
-            }
-            else
-            {
-                ModelState.AddModelError("Editing Club", "Oops. Il y a eu un problème lors de la modification du club");
-                return BadRequest(ModelState);
-            }
-        }
+        //    if (_clubRepo.Update(id, editedClub) != null)
+        //    {
+        //        return Ok(new
+        //        {
+        //            Message = "Club modifié avec succès.",
+        //            Club = _clubRepo.GetById(id)
+        //        });
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError("Editing Club", "Oops. Il y a eu un problème lors de la modification du club");
+        //        return BadRequest(ModelState);
+        //    }
+        //}
     }
 }

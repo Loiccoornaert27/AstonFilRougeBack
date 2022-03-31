@@ -17,6 +17,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
     .LogTo(Console.WriteLine, LogLevel.Information));
 builder.Services.AddScoped<IRepository<User>, UserListRepository>();
+builder.Services.AddScoped<IRepository<Address>, AddressListRepository>();
+builder.Services.AddScoped<IRepository<Club>, ClubListRepository>();
+builder.Services.AddScoped<IRepository<Course>, CourseListRepository>();
+builder.Services.AddScoped<IRepository<OpeningDay>, OpeningDayListRepository>();
+builder.Services.AddScoped<IRepository<Reservation>, ReservationListRepository>();
+builder.Services.AddScoped<IRepository<Subscription>, SubscriptionListRepository>();
 
 builder.Services.AddCors(options => {
     options.AddPolicy("allConnections", builder =>
