@@ -21,7 +21,7 @@ namespace AstonFilRouge_API.Controllers
         {
             return Ok(new
             {
-                UserList = _addressRepo.GetAll()
+                AddressList = _addressRepo.GetAll()
             });
         }
 
