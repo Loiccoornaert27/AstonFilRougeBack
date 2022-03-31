@@ -83,7 +83,7 @@ namespace AstonFilRouge_API.Controllers
             }
         }
 
-        [HttpPatch("/clubList/{id}")]
+        [HttpPatch("/courseList/{id}")]
         [Authorize(Roles = "Admin")]
         public IActionResult EditClub(int id, [FromForm] Course editedCourse)
         {

@@ -82,32 +82,32 @@ namespace AstonFilRouge_API.Controllers
                 });
             }
         }
-        //Elle pose problème faudra la fix
-        //[HttpPatch("/clubList/{id}")]
-        //[Authorize(Roles = "Admin")]
-        //public IActionResult EditClub(int id, [FromForm] Club editedClub)
-        //{
-        //    var found = _clubRepo.GetById(id);
-        //    if (found == null) return NotFound(new
-        //    {
-        //        Message = "Aucun club avec cet id trouvé."
-        //    });
 
-        //    if (!ModelState.IsValid) return BadRequest(ModelState);
+        [HttpPatch("/clubList/{id}")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditClub(int id, [FromForm] Club editedClub)
+        {
+            var found = _clubRepo.GetById(id);
+            if (found == null) return NotFound(new
+            {
+                Message = "Aucun club avec cet id trouvé."
+            });
 
-        //    if (_clubRepo.Update(id, editedClub) != null)
-        //    {
-        //        return Ok(new
-        //        {
-        //            Message = "Club modifié avec succès.",
-        //            Club = _clubRepo.GetById(id)
-        //        });
-        //    }
-        //    else
-        //    {
-        //        ModelState.AddModelError("Editing Club", "Oops. Il y a eu un problème lors de la modification du club");
-        //        return BadRequest(ModelState);
-        //    }
-        //}
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            if (_clubRepo.Update(id, editedClub) != null)
+            {
+                return Ok(new
+                {
+                    Message = "Club modifié avec succès.",
+                    Club = _clubRepo.GetById(id)
+                });
+            }
+            else
+            {
+                ModelState.AddModelError("Editing Club", "Oops. Il y a eu un problème lors de la modification du club");
+                return BadRequest(ModelState);
+            }
+        }
     }
 }
