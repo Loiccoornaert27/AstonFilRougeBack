@@ -34,7 +34,8 @@ namespace AstonFilRouge_API.Controllers
                 var claimList = new List<Claim>()
                 {
                 new Claim(ClaimTypes.NameIdentifier, auth.Email),
-                new Claim(ClaimTypes.Email, auth.Email)
+                new Claim(ClaimTypes.Email, auth.Email),
+                new Claim(ClaimTypes.Role, auth.Role.ToString())
 
                 };
                 var expiresAt = DateTime.UtcNow.AddMinutes(30);
