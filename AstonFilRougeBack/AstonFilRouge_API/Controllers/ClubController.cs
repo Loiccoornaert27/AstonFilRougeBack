@@ -105,7 +105,7 @@ namespace AstonFilRouge_API.Controllers
             }
             else
             {
-                ModelState.AddModelError("Editing Club", "Oops. Il y a eu une problème lors de la modification du club");
+                ModelState.AddModelError("Editing Club", "Oops. Il y a eu un problème lors de la modification du club");
                 return BadRequest(ModelState);
             }
         }
