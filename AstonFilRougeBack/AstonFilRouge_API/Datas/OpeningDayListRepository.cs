@@ -35,7 +35,7 @@ namespace AstonFilRouge_API.Datas
 
         public OpeningDay Update(int id,OpeningDay entity)
         {
-            OpeningDay found = GetById(Id);
+            OpeningDay found = GetById(id);
             if (found != null)
             {
                 found.Day = entity.Day;
