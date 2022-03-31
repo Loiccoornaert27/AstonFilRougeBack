@@ -82,9 +82,9 @@ namespace AstonFilRouge_API.Controllers
                 });
             }
         }
-
+        //Elle pose problème faudra la fix
         //[HttpPatch("/clubList/{id}")]
-        //[Authorize(Roles ="Admin")]
+        //[Authorize(Roles = "Admin")]
         //public IActionResult EditClub(int id, [FromBody] Club editedClub)
         //{
         //    var found = _clubRepo.GetById(id);
@@ -108,6 +108,6 @@ namespace AstonFilRouge_API.Controllers
         //        ModelState.AddModelError("Editing Club", "Oops. Il y a eu un problème lors de la modification du club");
         //        return BadRequest(ModelState);
         //    }
-        //}
+        }
     }
 }
