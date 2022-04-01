@@ -21,11 +21,15 @@ namespace AstonFilRouge_API.Models
         [Required]
         public int ClubId { get; set; }
         [ForeignKey("ClubId")]
-        public virtual Club Club { get; set; }
+        public virtual Club? Club { get; set; }
         [Required]
         public int CoachId { get; set; }
+        [ForeignKey("CoachId")]
+        public virtual User? User { get; set; }
         [Required]
-        public string Name { get; set; }
+        public int Limit { get; set; }
+        [Required]
+        public string Name { get; set; } // => Title
         [Required]
         public string Description { get; set; }
     }

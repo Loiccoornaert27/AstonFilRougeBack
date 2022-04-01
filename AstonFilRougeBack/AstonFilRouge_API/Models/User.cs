@@ -14,26 +14,23 @@ namespace AstonFilRouge_API.Models
         public string LastName { get; set; }
         [Required]
         public string Password { get; set; }
-        [Required]
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
         [ForeignKey("AddressId")]
         public virtual Address? Address { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
-        [Required]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
         [Required]
         public Role Role { get; set; }
-        public string Job { get; set; }
-        [Required]
-        public int ClubId { get; set; }
+        public string? Job { get; set; }
+        public int? ClubId { get; set; }
         [ForeignKey("ClubId")]
         public virtual Club? Club { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [Required]
         public DateTime CreationDate { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
     }
 }

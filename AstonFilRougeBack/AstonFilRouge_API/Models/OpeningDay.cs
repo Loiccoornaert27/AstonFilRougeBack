@@ -9,8 +9,8 @@ namespace AstonFilRouge_API.Models
         [Required]
         public DateTime Day;
         [Required]
-        public int OpeningHour { get; set; }
+        public int OpeningHour { get; set; } //  => DateTime
         [Required]
-        public int ClosingHour { get; set; }
+        public int ClosingHour { get; set; } // => DateTime
     }
 }
