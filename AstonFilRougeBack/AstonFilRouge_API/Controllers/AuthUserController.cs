@@ -24,17 +24,16 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromForm] User auth)
+        public IActionResult Authenticate([FromForm] string email, [FromForm] string password)
         {
-            User? found = _userRepo.GetAll().ToList().FirstOrDefault(x => x.Email == auth.Email && x.Password == auth.Password);
+            User? found = _userRepo.GetAll().ToList().FirstOrDefault(x => x.Email == email && x.Password == password);
             if (found != null)
             {
                 var claimList = new List<Claim>()
                 {
-                new Claim(ClaimTypes.NameIdentifier, auth.Email),
-                new Claim(ClaimTypes.Email, auth.Email),
-                new Claim(ClaimTypes.Role, auth.Role.ToString())
-
+                new Claim(ClaimTypes.NameIdentifier, found.Email),
+                new Claim(ClaimTypes.Email, found.Email),
+                new Claim(ClaimTypes.Role, found.Role.ToString())
                 };
                 var expiresAt = DateTime.UtcNow.AddMinutes(30);
 
