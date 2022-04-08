@@ -61,6 +61,8 @@ namespace AstonFilRouge_API.Datas
             if(found != null)
             {
                 found.Role = entity.Role;
+                found.UpdateDate= DateTime.Now;
+
                 _context.UserList.Update(found);
             }
             if (_context.SaveChanges() > 0) return GetById(entity.Id);
