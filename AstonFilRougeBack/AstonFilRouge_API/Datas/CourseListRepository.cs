@@ -38,7 +38,7 @@ namespace AstonFilRouge_API.Datas
             Course found = GetById(id);
             if (found != null)
             {
-                found.Name = entity.Name;
+                found.Title = entity.Title;
                 found.Description = entity.Description;
                 found.Type = entity.Type;
                 found.ClubId = entity.ClubId;

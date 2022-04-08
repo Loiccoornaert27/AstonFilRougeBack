@@ -41,11 +41,11 @@ namespace AstonFilRouge_API.Datas
                 found.FirstName = entity.FirstName;
                 found.LastName = entity.LastName;
                 found.Email = entity.Email;
-                found.Club = entity.Club;
+                found.ClubId = entity.ClubId;
                 found.UpdateDate = DateTime.Now;
                 found.PhoneNumber = entity.PhoneNumber;
                 found.Description = entity.Description;
-                found.Address = entity.Address;
+                found.AddressId = entity.AddressId;
                 
 
                 _context.UserList.Update(found);
@@ -61,6 +61,8 @@ namespace AstonFilRouge_API.Datas
             if(found != null)
             {
                 found.Role = entity.Role;
+                found.UpdateDate= DateTime.Now;
+
                 _context.UserList.Update(found);
             }
             if (_context.SaveChanges() > 0) return GetById(entity.Id);

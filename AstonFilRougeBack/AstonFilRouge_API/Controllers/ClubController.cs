@@ -63,7 +63,7 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPatch("update")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Manager")]
         public IActionResult EditClub(int id, [FromForm] Club editedClub)
         {
             var found = _clubRepo.GetById(id);
