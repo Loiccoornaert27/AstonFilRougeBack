@@ -51,7 +51,7 @@ namespace AstonFilRouge_API.Datas
                 _context.CourseList.Update(found);
             }
 
-            if (_context.SaveChanges() > 0) return GetById(entity.Id);
+            if (_context.SaveChanges() > 0) return GetById(found.Id);
             return null;
         }
     }
