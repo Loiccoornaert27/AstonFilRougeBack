@@ -41,14 +41,13 @@
             Validated
         }
 
+        [Flags]
         public enum Role
         {
-            Guest,
-            Member,
-            Coach,
-            Manager,
-            SuperAdmin,
-            All
+            Member = 1,
+            Coach = 2,
+            Manager = 4,
+            SuperAdmin = 8
         }
     }
 }
