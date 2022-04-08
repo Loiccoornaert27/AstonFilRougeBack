@@ -18,7 +18,7 @@ namespace AstonFilRouge_API.Models
         public string PhoneNumber { get; set; }
         [Required]
         public int Capacity { get; set; }
-        public int? Inside { get; set; }
+        public int Inside { get; set; }
         [Required]
         public List<OpeningDay> OpeningWeekDays { get; set; }
         [NotMapped]
