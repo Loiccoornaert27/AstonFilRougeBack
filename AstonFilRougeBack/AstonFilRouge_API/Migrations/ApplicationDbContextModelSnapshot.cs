@@ -35,6 +35,7 @@ namespace AstonFilRouge_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Complement")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Num")
@@ -50,7 +51,7 @@ namespace AstonFilRouge_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AddressList");
+                    b.ToTable("AddressList", (string)null);
                 });
 
             modelBuilder.Entity("AstonFilRouge_API.Models.Club", b =>
@@ -65,7 +66,6 @@ namespace AstonFilRouge_API.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Capacity")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("Inside")
@@ -83,7 +83,7 @@ namespace AstonFilRouge_API.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("ClubList");
+                    b.ToTable("ClubList", (string)null);
                 });
 
             modelBuilder.Entity("AstonFilRouge_API.Models.Course", b =>
@@ -127,7 +127,7 @@ namespace AstonFilRouge_API.Migrations
 
                     b.HasIndex("ClubId");
 
-                    b.ToTable("CourseList");
+                    b.ToTable("CourseList", (string)null);
                 });
 
             modelBuilder.Entity("AstonFilRouge_API.Models.OpeningDay", b =>
@@ -151,7 +151,7 @@ namespace AstonFilRouge_API.Migrations
 
                     b.HasIndex("ClubId");
 
-                    b.ToTable("OpeningDayList");
+                    b.ToTable("OpeningDayList", (string)null);
                 });
 
             modelBuilder.Entity("AstonFilRouge_API.Models.Reservation", b =>
@@ -180,7 +180,7 @@ namespace AstonFilRouge_API.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("ReservationList");
+                    b.ToTable("ReservationList", (string)null);
                 });
 
             modelBuilder.Entity("AstonFilRouge_API.Models.Subscription", b =>
@@ -214,7 +214,7 @@ namespace AstonFilRouge_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubscriptionList");
+                    b.ToTable("SubscriptionList", (string)null);
                 });
 
             modelBuilder.Entity("AstonFilRouge_API.Models.User", b =>
@@ -277,7 +277,7 @@ namespace AstonFilRouge_API.Migrations
 
                     b.HasIndex("ClubId");
 
-                    b.ToTable("UserList");
+                    b.ToTable("UserList", (string)null);
                 });
 
             modelBuilder.Entity("AstonFilRouge_API.Models.Club", b =>

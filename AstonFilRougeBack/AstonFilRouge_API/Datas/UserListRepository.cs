@@ -42,8 +42,7 @@ namespace AstonFilRouge_API.Datas
                 found.LastName = entity.LastName;
                 found.Email = entity.Email;
                 found.Club = entity.Club;
-                found.UpdateDate = DateTime.Now ;
-                found.Role= entity.Role;
+                found.UpdateDate = DateTime.Now;
                 found.PhoneNumber = entity.PhoneNumber;
                 found.Description = entity.Description;
                 found.Address = entity.Address;
@@ -52,6 +51,18 @@ namespace AstonFilRouge_API.Datas
                 _context.UserList.Update(found);
             }
 
+            if (_context.SaveChanges() > 0) return GetById(entity.Id);
+            return null;
+        }
+
+        public User UpdateRole(int id, User entity)
+        {
+            var found = GetById(id);
+            if(found != null)
+            {
+                found.Role = entity.Role;
+                _context.UserList.Update(found);
+            }
             if (_context.SaveChanges() > 0) return GetById(entity.Id);
             return null;
         }
