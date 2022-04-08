@@ -46,6 +46,7 @@ namespace AstonFilRouge_API.Datas
                 found.PhoneNumber = entity.PhoneNumber;
                 found.Description = entity.Description;
                 found.AddressId = entity.AddressId;
+                found.Role = entity.Role;
                 
 
                 _context.UserList.Update(found);
@@ -55,18 +56,18 @@ namespace AstonFilRouge_API.Datas
             return null;
         }
 
-        public User UpdateRole(int id, User entity)
-        {
-            var found = GetById(id);
-            if(found != null)
-            {
-                found.Role = entity.Role;
-                found.UpdateDate= DateTime.Now;
+        //public User UpdateRole(int id, User entity)
+        //{
+        //    var found = GetById(id);
+        //    if(found != null)
+        //    {
+        //        found.Role = entity.Role;
+        //        found.UpdateDate= DateTime.Now;
 
-                _context.UserList.Update(found);
-            }
-            if (_context.SaveChanges() > 0) return GetById(entity.Id);
-            return null;
-        }
+        //        _context.UserList.Update(found);
+        //    }
+        //    if (_context.SaveChanges() > 0) return GetById(entity.Id);
+        //    return null;
+        //}
     }
 }
