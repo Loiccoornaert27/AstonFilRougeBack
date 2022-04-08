@@ -1,12 +1,11 @@
 ﻿using AstonFilRouge_API.Datas;
 using AstonFilRouge_API.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AstonFilRouge_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/course")]
     [ApiController]
     public class CourseController : ControllerBase
     {
@@ -17,34 +16,7 @@ namespace AstonFilRouge_API.Controllers
             _courseRepo = courseRepo;
         }
 
-        [HttpGet("/courseList")]
-        public IActionResult GetAllCourses()
-        {
-            return Ok(new
-            {
-                CourseList = _courseRepo.GetAll()
-            });
-        }
-
-        [HttpGet("/courseList/{id}")]
-        public IActionResult GetCourseById(int id)
-        {
-            Course found = _courseRepo.GetById(id);
-            if (found == null)
-            {
-                return NotFound(new
-                {
-                    Message = "Aucune séance avec cet id trouvée."
-                });
-            }
-            return Ok(new
-            {
-                Message = "Séance trouvée",
-                Course = found
-            });
-        }
-
-        [HttpPost("/courseList")]
+        [HttpPost("create")]
         [Authorize(Roles = "Coach")]
         public IActionResult CreateNewCourse([FromForm] Course newCourse)
         {
@@ -62,28 +34,35 @@ namespace AstonFilRouge_API.Controllers
                 return BadRequest(ModelState);
             }
         }
-        [HttpDelete("courseList/{id}")]
-        public IActionResult DeleteCourse(int id)
+
+        [HttpGet("getall")]
+        public IActionResult GetAllCourses()
         {
-            Course found = _courseRepo.GetById(id);
-            if (found == null) return NotFound(new
+            return Ok(new
             {
-                Message = "Aucune séance avec cet id trouvée."
+                CourseList = _courseRepo.GetAll()
             });
-            if (_courseRepo.Delete(id)) return Ok(new
-            {
-                Message = "Séance supprimée avec succès"
-            });
-            else
-            {
-                return BadRequest(new
-                {
-                    Message = "Erreur lors de la suppression de la séance."
-                });
-            }
         }
 
-        [HttpPatch("/courseList/{id}")]
+        [HttpGet("get")]
+        public IActionResult GetCourseById(int id)
+        {
+            Course found = _courseRepo.GetById(id);
+            if (found == null)
+            {
+                return NotFound(new
+                {
+                    Message = "Aucune séance avec cet id trouvée."
+                });
+            }
+            return Ok(new
+            {
+                Message = "Séance trouvée",
+                Course = found
+            });
+        }
+
+        [HttpPatch("update")]
         [Authorize(Roles = "Admin")]
         public IActionResult EditClub(int id, [FromForm] Course editedCourse)
         {
@@ -107,6 +86,27 @@ namespace AstonFilRouge_API.Controllers
             {
                 ModelState.AddModelError("Editing Course", "Oops. Il y a eu un problème lors de la modification de la séance");
                 return BadRequest(ModelState);
+            }
+        }
+
+        [HttpDelete("delete")]
+        public IActionResult DeleteCourse(int id)
+        {
+            Course found = _courseRepo.GetById(id);
+            if (found == null) return NotFound(new
+            {
+                Message = "Aucune séance avec cet id trouvée."
+            });
+            if (_courseRepo.Delete(id)) return Ok(new
+            {
+                Message = "Séance supprimée avec succès"
+            });
+            else
+            {
+                return BadRequest(new
+                {
+                    Message = "Erreur lors de la suppression de la séance."
+                });
             }
         }
     }

@@ -1,34 +1,32 @@
-﻿using AstonFilRouge_API.Models;
-using AstonFilRouge_API.Datas;
-
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using AstonFilRouge_API.Datas;
+using AstonFilRouge_API.Models;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AstonFilRouge_API.Controllers
 {
-    [Route("api/[controller]")]
-    [EnableCors("AllConnections")]
     [ApiController]
-    public class AuthController : ControllerBase
+    [Route("api/authuser")]
+    [EnableCors("AllConnections")]
+    public class AuthUserController : ControllerBase
     {
         private readonly IRepository<User> _userRepo;
         private readonly IConfiguration _config;
 
-        public AuthController(IRepository<User> UserRepo, IConfiguration config)
+        public AuthUserController(IRepository<User> UserRepo, IConfiguration config)
         {
             _userRepo = UserRepo;
             _config = config;
         }
 
-        [HttpPost("/authenticate")]
+        [HttpPost("authenticate")]
         public IActionResult Authenticate([FromForm] User auth)
         {
-            User? found = _userRepo.GetAll().ToList().FirstOrDefault(x => x.Email == auth.Email && x.Password== auth.Password);
+            User? found = _userRepo.GetAll().ToList().FirstOrDefault(x => x.Email == auth.Email && x.Password == auth.Password);
             if (found != null)
             {
                 var claimList = new List<Claim>()

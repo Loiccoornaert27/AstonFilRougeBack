@@ -1,12 +1,11 @@
 ﻿using AstonFilRouge_API.Datas;
 using AstonFilRouge_API.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AstonFilRouge_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/openingday")]
     [ApiController]
     public class OpeningDayController : ControllerBase
     {
@@ -17,34 +16,7 @@ namespace AstonFilRouge_API.Controllers
             _odRepo = odRepo;
         }
 
-        [HttpGet("/OpeningDayList")]
-        public IActionResult GetAllOpeningDays()
-        {
-            return Ok(new
-            {
-                OpeningDayList = _odRepo.GetAll()
-            });
-        }
-
-        [HttpGet("/openingDayList/{id}")]
-        public IActionResult GetOpeningDayById(int id)
-        {
-            OpeningDay found = _odRepo.GetById(id);
-            if (found == null)
-            {
-                return NotFound(new
-                {
-                    Message = "Aucune journée d'ouverture avec cet id trouvée."
-                });
-            }
-            return Ok(new
-            {
-                Message = "Journée d'ouverture trouvée",
-                Course = found
-            });
-        }
-
-        [HttpPost("/openingDayList")]
+        [HttpPost("create")]
         [Authorize(Roles = "Admin")]
         public IActionResult CreateNewOpeningDay([FromForm] OpeningDay newOD)
         {
@@ -62,28 +34,35 @@ namespace AstonFilRouge_API.Controllers
                 return BadRequest(ModelState);
             }
         }
-        [HttpDelete("openingDayList/{id}")]
-        public IActionResult DeleteOpeningDay(int id)
+
+        [HttpGet("getall")]
+        public IActionResult GetAllOpeningDays()
         {
-            OpeningDay found = _odRepo.GetById(id);
-            if (found == null) return NotFound(new
+            return Ok(new
             {
-                Message = "Aucune journée d'ouverture avec cet id trouvée."
+                OpeningDayList = _odRepo.GetAll()
             });
-            if (_odRepo.Delete(id)) return Ok(new
-            {
-                Message = "Journée d'ouverture supprimée avec succès"
-            });
-            else
-            {
-                return BadRequest(new
-                {
-                    Message = "Erreur lors de la suppression de la journée d'ouverture."
-                });
-            }
         }
 
-        [HttpPatch("/openingDayList/{id}")]
+        [HttpGet("get")]
+        public IActionResult GetOpeningDayById(int id)
+        {
+            OpeningDay found = _odRepo.GetById(id);
+            if (found == null)
+            {
+                return NotFound(new
+                {
+                    Message = "Aucune journée d'ouverture avec cet id trouvée."
+                });
+            }
+            return Ok(new
+            {
+                Message = "Journée d'ouverture trouvée",
+                Course = found
+            });
+        }
+
+        [HttpPatch("update")]
         [Authorize(Roles = "Admin")]
         public IActionResult EditOpeningDay(int id, [FromForm] OpeningDay editedOD)
         {
@@ -107,6 +86,27 @@ namespace AstonFilRouge_API.Controllers
             {
                 ModelState.AddModelError("Editing OpeningDay", "Oops. Il y a eu un problème lors de la modification de la journée d'ouverture");
                 return BadRequest(ModelState);
+            }
+        }
+
+        [HttpDelete("delete")]
+        public IActionResult DeleteOpeningDay(int id)
+        {
+            OpeningDay found = _odRepo.GetById(id);
+            if (found == null) return NotFound(new
+            {
+                Message = "Aucune journée d'ouverture avec cet id trouvée."
+            });
+            if (_odRepo.Delete(id)) return Ok(new
+            {
+                Message = "Journée d'ouverture supprimée avec succès"
+            });
+            else
+            {
+                return BadRequest(new
+                {
+                    Message = "Erreur lors de la suppression de la journée d'ouverture."
+                });
             }
         }
     }
