@@ -1,12 +1,11 @@
 ﻿using AstonFilRouge_API.Datas;
 using AstonFilRouge_API.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AstonFilRouge_API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/address")]
     public class AddressController : ControllerBase
     {
         private readonly IRepository<Address> _addressRepo;
@@ -16,7 +15,25 @@ namespace AstonFilRouge_API.Controllers
             _addressRepo = addressRepo;
         }
 
-        [HttpGet("/addressList")]
+        [HttpPost("create")]
+        public IActionResult CreateNewAddress([FromForm] Address newAddress)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (_addressRepo.Add(newAddress) != null)
+            {
+                return Ok(new
+                {
+                    Message = "Nouvelle addresse ajoutée avec succès."
+                });
+            }
+            else
+            {
+                ModelState.AddModelError("Add Address", "Oops il y a eu un problème lors de l'ajout de l'adresse");
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpGet("getall")]
         public IActionResult GetAllAddress()
         {
             return Ok(new
@@ -25,7 +42,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("/addressList/{id}")]
+        [HttpGet("get")]
         public IActionResult GetAddressById(int id)
         {
             Address found = _addressRepo.GetById(id);
@@ -43,25 +60,34 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpPost("/address")]
-        public IActionResult CreateNewAddress([FromForm] Address newAddress)
+        [HttpPatch("update")]
+        public IActionResult EditAddress(int id, [FromForm] Address editedAddress)
         {
+            var found = _addressRepo.GetById(id);
+            if (found == null) return NotFound(new
+            {
+                Message = "Aucune adresse avec cet id trouvée."
+            });
+
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (_addressRepo.Add(newAddress) != null)
+
+            if (_addressRepo.Update(id, editedAddress) != null)
             {
                 return Ok(new
                 {
-                    Message = "Nouvelle addresse ajoutée avec succès."
+                    Message = "Adresse modifiée avec succès.",
+                    Address = _addressRepo.GetById(id)
                 });
             }
             else
             {
-                ModelState.AddModelError("Add Address", "Oops il y a eu un problème lors de l'ajout de l'adresse");
+                ModelState.AddModelError("Editing Address", "Oops. Il y a eu un problème lors de la modification de l'adresse");
                 return BadRequest(ModelState);
             }
         }
-        [HttpDelete("addressList/{id}")]
-        public IActionResult DeleteAddress( int id)
+
+        [HttpDelete("delete")]
+        public IActionResult DeleteAddress(int id)
         {
             Address found = _addressRepo.GetById(id);
             if (found == null) return NotFound(new
@@ -78,32 +104,6 @@ namespace AstonFilRouge_API.Controllers
                 {
                     Message = "Erreur lors de la suppression de l'adresse."
                 });
-            }
-        }
-
-        [HttpPatch("/addressList/{id}")]
-        public IActionResult EditAddress(int id,[FromForm] Address editedAddress)
-        {
-            var found = _addressRepo.GetById(id);
-            if (found == null) return NotFound(new
-            {
-                Message = "Aucune adresse avec cet id trouvée."
-            });
-
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            if(_addressRepo.Update(id, editedAddress) != null)
-            {
-                return Ok(new
-                {
-                    Message = "Adresse modifiée avec succès.",
-                    Address = _addressRepo.GetById(id)
-                });
-            }
-            else
-            {
-                ModelState.AddModelError("Editing Address", "Oops. Il y a eu un problème lors de la modification de l'adresse");
-                return BadRequest(ModelState);
             }
         }
     }
