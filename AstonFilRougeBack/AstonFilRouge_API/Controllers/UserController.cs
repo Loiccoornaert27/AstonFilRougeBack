@@ -1,14 +1,11 @@
-﻿using AstonFilRouge_API.Models;
-using AstonFilRouge_API.Datas;
-
-
-using Microsoft.AspNetCore.Http;
+﻿using AstonFilRouge_API.Datas;
+using AstonFilRouge_API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AstonFilRouge_API.Controllers
 {
-    [Route("api/User")]
     [ApiController]
+    [Route("api/user")]
     public class UserController : ControllerBase
     {
         private readonly IRepository<User> _userRepo;
@@ -18,7 +15,25 @@ namespace AstonFilRouge_API.Controllers
             _userRepo = userRepo;
         }
 
-        [HttpGet("/getall")]
+        [HttpPost("create")]
+        public IActionResult CreateNewUser([FromForm] User newUser)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (_userRepo.Add(newUser) != null)
+            {
+                return Ok(new
+                {
+                    Message = "New user added with success"
+                });
+            }
+            else
+            {
+                ModelState.AddModelError("Add User", "Something went wrong when adding the user to the database");
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpGet("getall")]
         public IActionResult GetAllUsers()
         {
             return Ok(new
@@ -43,24 +58,6 @@ namespace AstonFilRouge_API.Controllers
                 Message = "User found",
                 User = found
             });
-        }
-
-        [HttpPost("create")]
-        public IActionResult CreateNewUser([FromForm] User newUser)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (_userRepo.Add(newUser) != null)
-            {
-                return Ok(new
-                {
-                    Message = "New user added with success"
-                });
-            }
-            else
-            {
-                ModelState.AddModelError("Add User", "Something went wrong when adding the user to the database");
-                return BadRequest(ModelState);
-            }
         }
 
         [HttpPatch("update")]
@@ -89,30 +86,30 @@ namespace AstonFilRouge_API.Controllers
             }
         }
 
-        [HttpPatch("updaterole")]
-        public IActionResult ChangeUserRole([FromForm] int id, User newRole)
-        {
-            var found = _userRepo.GetById(id);
-            if (found == null) return NotFound(new
-            {
-                Message = "Aucun utilisateur avec cet id trouvée."
-            });
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+        //[HttpPatch("updaterole")]
+        //public IActionResult ChangeUserRole([FromForm] int id, User newRole)
+        //{
+        //    var found = _userRepo.GetById(id);
+        //    if (found == null) return NotFound(new
+        //    {
+        //        Message = "Aucun utilisateur avec cet id trouvée."
+        //    });
+        //    if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if(_userRepo.UpdateRole(id, newRole)!= null)
-            {
-                return Ok(new
-                {
-                    Message = "Role modifié avec succès",
-                    User = _userRepo.GetById(id)
-                });
-            }
-            else
-            {
-                ModelState.AddModelError("Editing Role", "Oops. Il y a eu un problème lors de la modification de l'utilisateur");
-                return BadRequest(ModelState);
-            }
-        }
+        //    if (_userRepo.UpdateRole(id, newRole) != null)
+        //    {
+        //        return Ok(new
+        //        {
+        //            Message = "Role modifié avec succès",
+        //            User = _userRepo.GetById(id)
+        //        });
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError("Editing Role", "Oops. Il y a eu un problème lors de la modification de l'utilisateur");
+        //        return BadRequest(ModelState);
+        //    }
+        //}
 
         [HttpDelete("delete")]
         public IActionResult DeleteUser(int id)
