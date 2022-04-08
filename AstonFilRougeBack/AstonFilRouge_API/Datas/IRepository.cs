@@ -6,6 +6,8 @@
         public T GetById(int id);
         public IEnumerable<T> GetAll();
         public T Update(int id, T entity);
+
+        public T UpdateRole(int id, T entity);
         public bool Delete(int id);
     }
 }

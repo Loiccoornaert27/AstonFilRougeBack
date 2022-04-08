@@ -31,11 +31,11 @@ namespace AstonFilRouge_API.Controllers
         public IActionResult GetUserById(int id)
         {
             User found = _userRepo.GetById(id);
-            if(found == null)
+            if (found == null)
             {
                 return NotFound(new
                 {
-                    Message="Pas d'utilisateur avec cet ID."
+                    Message = "Pas d'utilisateur avec cet ID."
                 });
             }
             return Ok(new
@@ -63,5 +63,55 @@ namespace AstonFilRouge_API.Controllers
             }
         }
 
+        [HttpPatch("/userList/{id}")]
+        public IActionResult EditUser(int id, [FromForm] User editedUser)
+        {
+            var found = _userRepo.GetById(id);
+            if (found == null) return NotFound(new
+            {
+                Message = "Aucun utilisateur avec cet id trouvée."
+            });
+
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            if (_userRepo.Update(id, editedUser) != null)
+            {
+                return Ok(new
+                {
+                    Message = "Utilisateur modifié avec succès.",
+                    User = _userRepo.GetById(id)
+                });
+            }
+            else
+            {
+                ModelState.AddModelError("Editing User", "Oops. Il y a eu un problème lors de la modification de l'utilisateur");
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpPatch("/userList/{id}")]
+        public IActionResult ChangeUserRole([FromForm] int id, User newRole)
+        {
+            var found = _userRepo.GetById(id);
+            if (found == null) return NotFound(new
+            {
+                Message = "Aucun utilisateur avec cet id trouvée."
+            });
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            if(_userRepo.UpdateRole(id, newRole)!= null)
+            {
+                return Ok(new
+                {
+                    Message = "Role modifié avec succès",
+                    User = _userRepo.GetById(id)
+                });
+            }
+            else
+            {
+                ModelState.AddModelError("Editing Role", "Oops. Il y a eu un problème lors de la modification de l'utilisateur");
+                return BadRequest(ModelState);
+            }
+        }
     }
 }
