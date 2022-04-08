@@ -1,12 +1,11 @@
 ﻿using AstonFilRouge_API.Datas;
 using AstonFilRouge_API.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AstonFilRouge_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/club")]
     [ApiController]
     public class ClubController : ControllerBase
     {
@@ -17,7 +16,26 @@ namespace AstonFilRouge_API.Controllers
             _clubRepo = clubRepo;
         }
 
-        [HttpGet("/clubList")]
+        [HttpPost("create")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult CreateNewClub([FromForm] Club newClub)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (_clubRepo.Add(newClub) != null)
+            {
+                return Ok(new
+                {
+                    Message = "Nouveau club ajouté avec succès."
+                });
+            }
+            else
+            {
+                ModelState.AddModelError("Add Club", "Oops il y a eu un problème lors de l'ajout du club");
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpGet("getall")]
         public IActionResult GetAllClubs()
         {
             return Ok(new
@@ -26,7 +44,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("/clubList/{id}")]
+        [HttpGet("get")]
         public IActionResult GetClubById(int id)
         {
             Club found = _clubRepo.GetById(id);
@@ -44,46 +62,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpPost("/clubList")]
-        [Authorize(Roles="Admin")]
-        public IActionResult CreateNewClub([FromForm] Club newClub)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (_clubRepo.Add(newClub) != null)
-            {
-                return Ok(new
-                {
-                    Message = "Nouveau club ajouté avec succès."
-                });
-            }
-            else
-            {
-                ModelState.AddModelError("Add Club", "Oops il y a eu un problème lors de l'ajout du club");
-                return BadRequest(ModelState);
-            }
-        }
-        [HttpDelete("clubList/{id}")]
-        public IActionResult DeleteClub(int id)
-        {
-            Club found = _clubRepo.GetById(id);
-            if (found == null) return NotFound(new
-            {
-                Message = "Aucun club avec cet id trouvée."
-            });
-            if (_clubRepo.Delete(id)) return Ok(new
-            {
-                Message = "Club supprimé avec succès"
-            });
-            else
-            {
-                return BadRequest(new
-                {
-                    Message = "Erreur lors de la suppression du club."
-                });
-            }
-        }
-
-        [HttpPatch("/clubList/{id}")]
+        [HttpPatch("update")]
         [Authorize(Roles = "Admin")]
         public IActionResult EditClub(int id, [FromForm] Club editedClub)
         {
@@ -107,6 +86,27 @@ namespace AstonFilRouge_API.Controllers
             {
                 ModelState.AddModelError("Editing Club", "Oops. Il y a eu un problème lors de la modification du club");
                 return BadRequest(ModelState);
+            }
+        }
+
+        [HttpDelete("delete")]
+        public IActionResult DeleteClub(int id)
+        {
+            Club found = _clubRepo.GetById(id);
+            if (found == null) return NotFound(new
+            {
+                Message = "Aucun club avec cet id trouvée."
+            });
+            if (_clubRepo.Delete(id)) return Ok(new
+            {
+                Message = "Club supprimé avec succès"
+            });
+            else
+            {
+                return BadRequest(new
+                {
+                    Message = "Erreur lors de la suppression du club."
+                });
             }
         }
     }
