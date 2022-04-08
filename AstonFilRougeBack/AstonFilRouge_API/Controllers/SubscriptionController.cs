@@ -1,12 +1,10 @@
 ﻿using AstonFilRouge_API.Datas;
 using AstonFilRouge_API.Models;
-
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AstonFilRouge_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/subscription")]
     [ApiController]
     public class SubscriptionController : ControllerBase
     {
@@ -17,7 +15,25 @@ namespace AstonFilRouge_API.Controllers
             _subRepo = subRepo;
         }
 
-        [HttpGet("/subscriptionList")]
+        [HttpPost("create")]
+        public IActionResult CreateNewSubscription([FromForm] Subscription newSub)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (_subRepo.Add(newSub) != null)
+            {
+                return Ok(new
+                {
+                    Message = "Nouvel abonnement ajouté avec succès."
+                });
+            }
+            else
+            {
+                ModelState.AddModelError("Add Subscription", "Oops. Il y a eu un problème lors de l'ajout de l'abonnement");
+                return BadRequest(ModelState);
+            }
+        }
+
+        [HttpGet("getall")]
         public IActionResult GetAllSubscriptions()
         {
             return Ok(new
@@ -26,7 +42,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("/subscriptionList/{id}")]
+        [HttpGet("get")]
         public IActionResult GetSubscriptionById(int id)
         {
             Subscription found = _subRepo.GetById(id);
@@ -44,45 +60,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpPost("/subscriptionList")]
-        public IActionResult CreateNewSubscription([FromForm] Subscription newSub)
-        {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (_subRepo.Add(newSub) != null)
-            {
-                return Ok(new
-                {
-                    Message = "Nouvel abonnement ajouté avec succès."
-                });
-            }
-            else
-            {
-                ModelState.AddModelError("Add Subscription", "Oops. Il y a eu un problème lors de l'ajout de l'abonnement");
-                return BadRequest(ModelState);
-            }
-        }
-        [HttpDelete("subscriptionList/{id}")]
-        public IActionResult DeleteSubscription(int id)
-        {
-            Subscription found = _subRepo.GetById(id);
-            if (found == null) return NotFound(new
-            {
-                Message = "Aucun abonnement avec cet id trouvé."
-            });
-            if (_subRepo.Delete(id)) return Ok(new
-            {
-                Message = "Abonnement supprimé avec succès"
-            });
-            else
-            {
-                return BadRequest(new
-                {
-                    Message = "Erreur lors de la suppression de l'abonnement."
-                });
-            }
-        }
-
-        [HttpPatch("/subscriptionList/{id}")]
+        [HttpPatch("update")]
         public IActionResult EditSubscription(int id, [FromForm] Subscription editedSub)
         {
             var found = _subRepo.GetById(id);
@@ -105,6 +83,27 @@ namespace AstonFilRouge_API.Controllers
             {
                 ModelState.AddModelError("Editing Subscription", "Oops. Il y a eu un problème lors de la modification de l'abonnement");
                 return BadRequest(ModelState);
+            }
+        }
+
+        [HttpDelete("delete")]
+        public IActionResult DeleteSubscription(int id)
+        {
+            Subscription found = _subRepo.GetById(id);
+            if (found == null) return NotFound(new
+            {
+                Message = "Aucun abonnement avec cet id trouvé."
+            });
+            if (_subRepo.Delete(id)) return Ok(new
+            {
+                Message = "Abonnement supprimé avec succès"
+            });
+            else
+            {
+                return BadRequest(new
+                {
+                    Message = "Erreur lors de la suppression de l'abonnement."
+                });
             }
         }
     }
