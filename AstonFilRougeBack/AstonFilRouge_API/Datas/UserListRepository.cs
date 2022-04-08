@@ -1,19 +1,27 @@
-﻿using AstonFilRouge_API.Models;
+﻿using AstonFilRouge_API.Controllers.Services;
+using AstonFilRouge_API.Models;
 
 namespace AstonFilRouge_API.Datas
 {
     public class UserListRepository : BaseRepository, IRepository<User>
     {
+        private UploadService _uploadPic;
         public UserListRepository(ApplicationDbContext context) : base(context)
         {
         }
 
-        public User Add(User entity)
+        public User Add(User entity, IFormFile picture)
         {
+            entity.AvatarUrl = _uploadPic.UploadPicture(picture,"UsersAvatarList");
             _context.UserList.Add(entity);
 
             if (_context.SaveChanges() > 0) return GetById(entity.Id);
             return null;
+        }
+
+        public User Add(User entity)
+        {
+            throw new NotImplementedException();
         }
 
         public bool Delete(int id)
@@ -33,7 +41,7 @@ namespace AstonFilRouge_API.Datas
             return _context.UserList.FirstOrDefault(x => x.Id == id);
         }
 
-        public User Update(int id,User entity)
+        public User Update(int id,User entity, IFormFile? picture)
         {
             User found = GetById(id);
             if (found != null)
@@ -47,6 +55,10 @@ namespace AstonFilRouge_API.Datas
                 found.Description = entity.Description;
                 found.AddressId = entity.AddressId;
                 found.Role = entity.Role;
+                if(picture != null)
+                {
+                    found.AvatarUrl = _uploadPic.UploadPicture(picture, "UsersAvatarList");
+                }
                 
 
                 _context.UserList.Update(found);
@@ -54,6 +66,11 @@ namespace AstonFilRouge_API.Datas
 
             if (_context.SaveChanges() > 0) return GetById(found.Id);
             return null;
+        }
+
+        public User Update(int id, User entity)
+        {
+            throw new NotImplementedException();
         }
 
         //public User UpdateRole(int id, User entity)
