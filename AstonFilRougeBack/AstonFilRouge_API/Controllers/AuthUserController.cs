@@ -14,12 +14,12 @@ namespace AstonFilRouge_API.Controllers
     [Route("api/[controller]")]
     [EnableCors("AllConnections")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthUserController : ControllerBase
     {
         private readonly IRepository<User> _userRepo;
         private readonly IConfiguration _config;
 
-        public AuthController(IRepository<User> UserRepo, IConfiguration config)
+        public AuthUserController(IRepository<User> UserRepo, IConfiguration config)
         {
             _userRepo = UserRepo;
             _config = config;
