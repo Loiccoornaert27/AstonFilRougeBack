@@ -24,7 +24,7 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPost("authenticate")]
-        public IActionResult Authenticate(string email, string password)
+        public IActionResult Authenticate([FromForm] string email, [FromForm] string password)
         {
             User? found = _userRepo.GetAll().ToList().FirstOrDefault(x => x.Email == email && x.Password == password);
             if (found != null)
