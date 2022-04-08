@@ -29,7 +29,7 @@ namespace AstonFilRouge_API.Models
         [Required]
         public int Limit { get; set; }
         [Required]
-        public string Name { get; set; } // => Title
+        public string Title { get; set; } 
         [Required]
         public string Description { get; set; }
     }
