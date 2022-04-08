@@ -27,25 +27,6 @@ namespace AstonFilRouge_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubscriptionList",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
-                    ClubId = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    BillingPeriod = table.Column<int>(type: "int", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndCommitmentDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubscriptionList", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ClubList",
                 columns: table => new
                 {
@@ -69,40 +50,13 @@ namespace AstonFilRouge_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CourseList",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    StartHour = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndHour = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    ClubId = table.Column<int>(type: "int", nullable: false),
-                    CoachId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CourseList", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CourseList_ClubList_ClubId",
-                        column: x => x.ClubId,
-                        principalTable: "ClubList",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OpeningDayList",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OpeningHour = table.Column<int>(type: "int", nullable: false),
-                    ClosingHour = table.Column<int>(type: "int", nullable: false),
+                    OpeningHour = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ClosingHour = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ClubId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -124,14 +78,14 @@ namespace AstonFilRouge_API.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Role = table.Column<int>(type: "int", nullable: false),
                     Job = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClubId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClubId = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -142,13 +96,77 @@ namespace AstonFilRouge_API.Migrations
                         name: "FK_UserList_AddressList_AddressId",
                         column: x => x.AddressId,
                         principalTable: "AddressList",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_UserList_ClubList_ClubId",
                         column: x => x.ClubId,
                         principalTable: "ClubList",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartHour = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndHour = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    ClubId = table.Column<int>(type: "int", nullable: false),
+                    CoachId = table.Column<int>(type: "int", nullable: false),
+                    Limit = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseList", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CourseList_ClubList_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "ClubList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CourseList_UserList_CoachId",
+                        column: x => x.CoachId,
+                        principalTable: "UserList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubscriptionList",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    ClubId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    BillingPeriod = table.Column<int>(type: "int", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndCommitmentDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubscriptionList", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubscriptionList_ClubList_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "ClubList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SubscriptionList_UserList_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "UserList",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,6 +207,11 @@ namespace AstonFilRouge_API.Migrations
                 column: "ClubId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CourseList_CoachId",
+                table: "CourseList",
+                column: "CoachId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OpeningDayList_ClubId",
                 table: "OpeningDayList",
                 column: "ClubId");
@@ -202,6 +225,16 @@ namespace AstonFilRouge_API.Migrations
                 name: "IX_ReservationList_CourseId",
                 table: "ReservationList",
                 column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubscriptionList_ClientId",
+                table: "SubscriptionList",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubscriptionList_ClubId",
+                table: "SubscriptionList",
+                column: "ClubId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserList_AddressId",

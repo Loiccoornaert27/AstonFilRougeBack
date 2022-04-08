@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AstonFilRouge_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220331141445_Initial")]
+    [Migration("20220408082542_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,10 +37,9 @@ namespace AstonFilRouge_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Complement")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Num")
+                    b.Property<int?>("Num")
                         .HasColumnType("int");
 
                     b.Property<string>("Street")
@@ -70,7 +69,7 @@ namespace AstonFilRouge_API.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Inside")
+                    b.Property<int?>("Inside")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -112,9 +111,8 @@ namespace AstonFilRouge_API.Migrations
                     b.Property<DateTime>("EndHour")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Limit")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartHour")
                         .HasColumnType("datetime2");
@@ -122,12 +120,18 @@ namespace AstonFilRouge_API.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClubId");
+
+                    b.HasIndex("CoachId");
 
                     b.ToTable("CourseList");
                 });
@@ -140,14 +144,14 @@ namespace AstonFilRouge_API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ClosingHour")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("ClosingHour")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("ClubId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OpeningHour")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("OpeningHour")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -202,10 +206,10 @@ namespace AstonFilRouge_API.Migrations
                     b.Property<int>("ClubId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("EndCommitmentDate")
+                    b.Property<DateTime?>("EndCommitmentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Price")
@@ -215,6 +219,10 @@ namespace AstonFilRouge_API.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("ClubId");
 
                     b.ToTable("SubscriptionList");
                 });
@@ -227,20 +235,19 @@ namespace AstonFilRouge_API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("BirthDate")
+                    b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ClubId")
+                    b.Property<int?>("ClubId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -252,7 +259,6 @@ namespace AstonFilRouge_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Job")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
@@ -270,7 +276,7 @@ namespace AstonFilRouge_API.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdateDate")
+                    b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -301,7 +307,15 @@ namespace AstonFilRouge_API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AstonFilRouge_API.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("CoachId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Club");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AstonFilRouge_API.Models.OpeningDay", b =>
@@ -330,11 +344,11 @@ namespace AstonFilRouge_API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AstonFilRouge_API.Models.User", b =>
+            modelBuilder.Entity("AstonFilRouge_API.Models.Subscription", b =>
                 {
-                    b.HasOne("AstonFilRouge_API.Models.Address", "Address")
+                    b.HasOne("AstonFilRouge_API.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("AddressId")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -343,6 +357,21 @@ namespace AstonFilRouge_API.Migrations
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Club");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AstonFilRouge_API.Models.User", b =>
+                {
+                    b.HasOne("AstonFilRouge_API.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("AstonFilRouge_API.Models.Club", "Club")
+                        .WithMany()
+                        .HasForeignKey("ClubId");
 
                     b.Navigation("Address");
 
