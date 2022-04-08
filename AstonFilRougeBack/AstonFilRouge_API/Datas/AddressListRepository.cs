@@ -16,6 +16,11 @@ namespace AstonFilRouge_API.Datas
             return null;
         }
 
+        public Address Add(Address entity, IFormFile? picture)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Delete(int id)
         {
             _context.AddressList.Remove(GetById(id));
@@ -49,6 +54,11 @@ namespace AstonFilRouge_API.Datas
 
             if (_context.SaveChanges() > 0) return GetById(found.Id);
             return null;
+        }
+
+        public Address Update(int id, Address entity, IFormFile? picture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

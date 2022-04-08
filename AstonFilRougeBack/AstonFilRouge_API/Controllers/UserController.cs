@@ -16,10 +16,10 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult CreateNewUser([FromForm] User newUser)
+        public IActionResult CreateNewUser([FromForm] User newUser, IFormFile? picture)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (_userRepo.Add(newUser) != null)
+            if (_userRepo.Add(newUser, picture) != null)
             {
                 return Ok(new
                 {
@@ -61,7 +61,7 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPatch("update")]
-        public IActionResult EditUser(int id, [FromForm] User editedUser)
+        public IActionResult EditUser(int id, [FromForm] User editedUser, IFormFile? picture)
         {
             var found = _userRepo.GetById(id);
             if (found == null) return NotFound(new
@@ -71,7 +71,7 @@ namespace AstonFilRouge_API.Controllers
 
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if (_userRepo.Update(id, editedUser) != null)
+            if (_userRepo.Update(id, editedUser, picture) != null)
             {
                 return Ok(new
                 {

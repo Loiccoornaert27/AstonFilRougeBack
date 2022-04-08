@@ -16,6 +16,11 @@ namespace AstonFilRouge_API.Datas
             return null;
         }
 
+        public Course Add(Course entity, IFormFile? picture)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Delete(int id)
         {
             _context.CourseList.Remove(GetById(id));
@@ -53,6 +58,11 @@ namespace AstonFilRouge_API.Datas
 
             if (_context.SaveChanges() > 0) return GetById(found.Id);
             return null;
+        }
+
+        public Course Update(int id, Course entity, IFormFile? picture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

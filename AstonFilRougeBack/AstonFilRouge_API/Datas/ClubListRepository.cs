@@ -16,6 +16,11 @@ namespace AstonFilRouge_API.Datas
             return null;
         }
 
+        public Club Add(Club entity, IFormFile? picture)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Delete(int id)
         {
             _context.ClubList.Remove(GetById(id));
@@ -52,6 +57,11 @@ namespace AstonFilRouge_API.Datas
 
             if (_context.SaveChanges() > 0) return GetById(found.Id);
             return null;
+        }
+
+        public Club Update(int id, Club entity, IFormFile? picture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -16,6 +16,11 @@ namespace AstonFilRouge_API.Datas
             return null;
         }
 
+        public OpeningDay Add(OpeningDay entity, IFormFile? picture)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Delete(int id)
         {
             _context.OpeningDayList.Remove(GetById(id));
@@ -47,6 +52,11 @@ namespace AstonFilRouge_API.Datas
 
             if (_context.SaveChanges() > 0) return GetById(found.Id);
             return null;
+        }
+
+        public OpeningDay Update(int id, OpeningDay entity, IFormFile? picture)
+        {
+            throw new NotImplementedException();
         }
     }
 }

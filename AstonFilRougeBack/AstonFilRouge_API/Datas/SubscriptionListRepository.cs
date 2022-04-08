@@ -16,6 +16,11 @@ namespace AstonFilRouge_API.Datas
             return null;
         }
 
+        public Subscription Add(Subscription entity, IFormFile? picture)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Delete(int id)
         {
             _context.SubscriptionList.Remove(GetById(id));
@@ -50,6 +55,11 @@ namespace AstonFilRouge_API.Datas
 
             if (_context.SaveChanges() > 0) return GetById(found.Id);
             return null;
+        }
+
+        public Subscription Update(int id, Subscription entity, IFormFile? picture)
+        {
+            throw new NotImplementedException();
         }
     }
 }
