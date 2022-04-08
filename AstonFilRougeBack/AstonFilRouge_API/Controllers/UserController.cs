@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AstonFilRouge_API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/User")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -18,7 +18,7 @@ namespace AstonFilRouge_API.Controllers
             _userRepo = userRepo;
         }
 
-        [HttpGet("/userList")]
+        [HttpGet("/getall")]
         public IActionResult GetAllUsers()
         {
             return Ok(new
@@ -27,7 +27,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("/userList/{id}")]
+        [HttpGet("get")]
         public IActionResult GetUserById(int id)
         {
             User found = _userRepo.GetById(id);
@@ -45,7 +45,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpPost("/user")]
+        [HttpPost("create")]
         public IActionResult CreateNewUser([FromForm] User newUser)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -63,7 +63,7 @@ namespace AstonFilRouge_API.Controllers
             }
         }
 
-        [HttpPatch("/userList/{id}")]
+        [HttpPatch("update")]
         public IActionResult EditUser(int id, [FromForm] User editedUser)
         {
             var found = _userRepo.GetById(id);
@@ -89,7 +89,7 @@ namespace AstonFilRouge_API.Controllers
             }
         }
 
-        [HttpPatch("/userList/{id}")]
+        [HttpPatch("updaterole")]
         public IActionResult ChangeUserRole([FromForm] int id, User newRole)
         {
             var found = _userRepo.GetById(id);
@@ -111,6 +111,27 @@ namespace AstonFilRouge_API.Controllers
             {
                 ModelState.AddModelError("Editing Role", "Oops. Il y a eu un problème lors de la modification de l'utilisateur");
                 return BadRequest(ModelState);
+            }
+        }
+
+        [HttpDelete("delete")]
+        public IActionResult DeleteUser(int id)
+        {
+            var found = _userRepo.GetById(id);
+            if (found == null) return NotFound(new
+            {
+                Message = "Aucun utilisateur avec cet id trouvée."
+            });
+            if (_userRepo.Delete(id)) return Ok(new
+            {
+                Message = "Utilisateur supprimé avec succès"
+            });
+            else
+            {
+                return BadRequest(new
+                {
+                    Message = "Erreur lors de la suppression de l'adresse."
+                });
             }
         }
     }
