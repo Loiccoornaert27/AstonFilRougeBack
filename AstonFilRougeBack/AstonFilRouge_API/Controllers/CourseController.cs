@@ -44,7 +44,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("get")]
+        [HttpGet("get/{id}")]
         public IActionResult GetCourseById(int id)
         {
             Course found = _courseRepo.GetById(id);
@@ -62,7 +62,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpPatch("update")]
+        [HttpPatch("update/{id}")]
         [Authorize(Roles = "Admin")]
         public IActionResult EditClub(int id, [FromForm] Course editedCourse)
         {
@@ -89,7 +89,7 @@ namespace AstonFilRouge_API.Controllers
             }
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
         public IActionResult DeleteCourse(int id)
         {
             Course found = _courseRepo.GetById(id);

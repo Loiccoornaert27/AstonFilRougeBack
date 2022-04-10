@@ -42,7 +42,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("get")]
+        [HttpGet("get/{id}")]
         public IActionResult GetReservationById(int id)
         {
             Reservation found = _resaRepo.GetById(id);
@@ -60,7 +60,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpPatch("update")]
+        [HttpPatch("update/{id}")]
         public IActionResult EditReservation(int id, [FromForm] Reservation editedResa)
         {
             var found = _resaRepo.GetById(id);
@@ -86,7 +86,7 @@ namespace AstonFilRouge_API.Controllers
             }
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
         public IActionResult DeleteReservation(int id)
         {
             Reservation found = _resaRepo.GetById(id);

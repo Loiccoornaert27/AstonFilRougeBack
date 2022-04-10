@@ -19,8 +19,7 @@
         {
             Access,
             Individual,
-            Collective,
-            Home
+            Collective
         }
 
         public enum Day

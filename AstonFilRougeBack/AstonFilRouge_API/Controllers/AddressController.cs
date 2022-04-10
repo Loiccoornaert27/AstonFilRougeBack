@@ -42,7 +42,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("get")]
+        [HttpGet("get/{id}")]
         public IActionResult GetAddressById(int id)
         {
             Address found = _addressRepo.GetById(id);
@@ -60,7 +60,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpPatch("update")]
+        [HttpPatch("update/{id}")]
         public IActionResult EditAddress(int id, [FromForm] Address editedAddress)
         {
             var found = _addressRepo.GetById(id);
@@ -86,7 +86,7 @@ namespace AstonFilRouge_API.Controllers
             }
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
         public IActionResult DeleteAddress(int id)
         {
             Address found = _addressRepo.GetById(id);

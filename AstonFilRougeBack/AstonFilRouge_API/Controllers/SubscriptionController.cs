@@ -42,7 +42,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("get")]
+        [HttpGet("get/{id}")]
         public IActionResult GetSubscriptionById(int id)
         {
             Subscription found = _subRepo.GetById(id);
@@ -60,7 +60,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpPatch("update")]
+        [HttpPatch("update/{id}")]
         public IActionResult EditSubscription(int id, [FromForm] Subscription editedSub)
         {
             var found = _subRepo.GetById(id);
@@ -86,7 +86,7 @@ namespace AstonFilRouge_API.Controllers
             }
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
         public IActionResult DeleteSubscription(int id)
         {
             Subscription found = _subRepo.GetById(id);

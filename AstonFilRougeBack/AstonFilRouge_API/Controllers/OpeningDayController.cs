@@ -44,7 +44,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("get")]
+        [HttpGet("get/{id}")]
         public IActionResult GetOpeningDayById(int id)
         {
             OpeningDay found = _odRepo.GetById(id);
@@ -62,7 +62,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpPatch("update")]
+        [HttpPatch("update/{id}")]
         [Authorize(Roles = "Admin")]
         public IActionResult EditOpeningDay(int id, [FromForm] OpeningDay editedOD)
         {
@@ -89,7 +89,7 @@ namespace AstonFilRouge_API.Controllers
             }
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
         public IActionResult DeleteOpeningDay(int id)
         {
             OpeningDay found = _odRepo.GetById(id);

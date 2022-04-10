@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static AstonFilRouge_API.Enums.Enumerables;
 
 namespace AstonFilRouge_API.Models
 {
@@ -7,7 +8,7 @@ namespace AstonFilRouge_API.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public DateTime Day;
+        public Day Day;
         [Required]
         public DateTime OpeningHour { get; set; }
         [Required]

@@ -42,7 +42,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("get")]
+        [HttpGet("get/{id}")]
         public IActionResult GetUserById(int id)
         {
             User found = _userRepo.GetById(id);
@@ -60,7 +60,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpPatch("update")]
+        [HttpPatch("update/{id}")]
         public IActionResult EditUser(int id, [FromForm] User editedUser, IFormFile? picture)
         {
             var found = _userRepo.GetById(id);
@@ -111,7 +111,7 @@ namespace AstonFilRouge_API.Controllers
         //    }
         //}
 
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
         public IActionResult DeleteUser(int id)
         {
             var found = _userRepo.GetById(id);
