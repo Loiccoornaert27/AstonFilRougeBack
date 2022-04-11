@@ -22,6 +22,7 @@ namespace AstonFilRouge_API.Models
         [Required]
         public string PhoneNumber { get; set; }
         public DateTime? BirthDate { get; set; }
+        [Required]
         public Role Role { get; set; }
         public string? Job { get; set; }
         public int? ClubId { get; set; }
