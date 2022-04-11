@@ -1,4 +1,5 @@
-﻿using AstonFilRouge_API.Datas;
+﻿using AstonFilRouge_API.Controllers.Services;
+using AstonFilRouge_API.Datas;
 using AstonFilRouge_API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,17 +10,19 @@ namespace AstonFilRouge_API.Controllers
     public class ReservationController : ControllerBase
     {
         private readonly IRepository<Reservation> _resaRepo;
+        private ReportingService _report;
 
-        public ReservationController(IRepository<Reservation> resaRepo)
+        public ReservationController(IRepository<Reservation> resaRepo, ReportingService report)
         {
             _resaRepo = resaRepo;
+            _report = report;
         }
 
         [HttpPost("create")]
         public IActionResult CreateNewReservation([FromForm] Reservation newResa)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (_resaRepo.Add(newResa) != null)
+            if (_resaRepo.Add(newResa) != null && !_report.ClubFull(newResa.Course.ClubId,newResa.RequestDate))
             {
                 return Ok(new
                 {

@@ -36,17 +36,31 @@ namespace AstonFilRouge_API.Controllers.Services
             IEnumerable<Reservation> resaList = _resaRepo.GetAll();
             foreach(Reservation resa in resaList)
             {
-                if(resa.Course.StartHour == time)
-                {
-                    Club club = _clubRepo.GetById(resa.Course.ClubId);
+                Club club = _clubRepo.GetById(resa.Course.ClubId);
+                if (resa.Course.StartHour == time && !ClubFull(club.Id))
+                {   
                     club.Inside++;
                 }
                 if(resa.Course.EndHour == time)
                 {
-                    Club club = _clubRepo.GetById(resa.Course.ClubId);
                     club.Inside--;
                 }
             }
+        }
+
+        public int GetInsidePerHour(int id,DateTime time)
+        {
+            IEnumerable<Reservation> resaList = _resaRepo.GetAll();
+            Club club = _clubRepo.GetById(id);
+            int sum = 0;
+            foreach (Reservation resa in resaList)
+            {
+                if(resa.Course.ClubId == club.Id)
+                {
+                    if(resa.Course.StartHour <= time && resa.Course.EndHour >= time) sum++;
+                }
+            }
+            return sum;
         }
 
         public bool WarningClubAlmostFull(int id)
@@ -59,10 +73,10 @@ namespace AstonFilRouge_API.Controllers.Services
             else return true;
         }
 
-        public bool ClubFull(int id)
+        public bool ClubFull(int id, DateTime time)
         {
             Club club = _clubRepo.GetById(id);
-            if (club.Inside == club.Capacity) return true;
+            if (GetInsidePerHour(id, time) == club.Capacity) return true;
             else return false;
         }
     }
