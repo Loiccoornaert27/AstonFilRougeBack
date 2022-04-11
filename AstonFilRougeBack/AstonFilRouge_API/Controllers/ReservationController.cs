@@ -22,6 +22,7 @@ namespace AstonFilRouge_API.Controllers
         public IActionResult CreateNewReservation([FromForm] Reservation newResa)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
+            //Empêche de créer une réservation si le club est complet
             if (_report.ClubFull(newResa.Course.ClubId, newResa.RequestDate))
             {
                 ModelState.AddModelError("Add Reservation", "Le club est complet à cette heure");
