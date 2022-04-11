@@ -22,7 +22,12 @@ namespace AstonFilRouge_API.Controllers
         public IActionResult CreateNewReservation([FromForm] Reservation newResa)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (_resaRepo.Add(newResa) != null && !_report.ClubFull(newResa.Course.ClubId,newResa.RequestDate))
+            if (_report.ClubFull(newResa.Course.ClubId, newResa.RequestDate))
+            {
+                ModelState.AddModelError("Add Reservation", "Le club est complet à cette heure");
+                return BadRequest(ModelState);
+            }
+            if (_resaRepo.Add(newResa) != null)
             {
                 return Ok(new
                 {
