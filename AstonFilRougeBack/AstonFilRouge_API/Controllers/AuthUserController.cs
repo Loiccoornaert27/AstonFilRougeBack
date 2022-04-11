@@ -11,7 +11,7 @@ namespace AstonFilRouge_API.Controllers
 {
     [ApiController]
     [Route("api/authuser")]
-    [EnableCors("AllConnections")]
+    [EnableCors("allConnections")]
     public class AuthUserController : ControllerBase
     {
         private readonly IRepository<User> _userRepo;
@@ -24,16 +24,15 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromForm] string email, [FromForm] string password)
+        public IActionResult Authenticate(AuthUser authUser)
         {
-            User? found = _userRepo.GetAll().ToList().FirstOrDefault(x => x.Email == email && x.Password == password);
+            User? found = _userRepo.GetAll().ToList().FirstOrDefault(x => x.Email == authUser.Email && x.Password == authUser.Password);
             if (found != null)
             {
                 var claimList = new List<Claim>()
                 {
-                new Claim(ClaimTypes.NameIdentifier, found.Email),
                 new Claim(ClaimTypes.Email, found.Email),
-                new Claim(ClaimTypes.Role, found.Role.ToString())
+                new Claim(ClaimTypes.Role, ((int)found.Role).ToString())
                 };
                 var expiresAt = DateTime.UtcNow.AddMinutes(30);
 
@@ -45,8 +44,8 @@ namespace AstonFilRouge_API.Controllers
             }
             ModelState.AddModelError("Unauthorized", "You are not authorized to access the endpoint");
             return Unauthorized(ModelState);
-
         }
+
         private string CreateToken(IEnumerable<Claim> claims, DateTime expiresAt)
         {
             var secretKey = Encoding.ASCII.GetBytes(_config["JWT:SecretKey"]);
