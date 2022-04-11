@@ -8,6 +8,7 @@ namespace AstonFilRouge_API.Controllers.Services
         private IRepository<Reservation> _resaRepo;
         private IRepository<Subscription> _subRepo;
         private IRepository<Club> _clubRepo;
+        private IRepository<Course> _courseRepo;
 
         //Fonction qui calcule le chiffre d'affaire d'une salle par mois
         public int GetMonthlyRevenues(int id)
@@ -83,6 +84,26 @@ namespace AstonFilRouge_API.Controllers.Services
         {
             Club club = _clubRepo.GetById(id);
             if (GetInsidePerHour(id, time) == club.Capacity) return true;
+            else return false;
+        }
+
+        public int GetCourseAttendance(int id)
+        {
+            Course course = _courseRepo.GetById(id);
+            IEnumerable<Reservation> resaList = _resaRepo.GetAll();
+            int attendance = 0;
+            foreach(Reservation resa in resaList)
+            {
+                if(resa.CourseId == course.Id) attendance++;
+            }
+            return attendance;
+        }
+
+
+        public bool CourseFull(int id)
+        {
+            Course course = _courseRepo.GetById(id);
+            if (GetCourseAttendance(id) == course.Limit) return true;
             else return false;
         }
     }
