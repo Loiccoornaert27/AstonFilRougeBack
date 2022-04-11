@@ -48,5 +48,22 @@ namespace AstonFilRouge_API.Controllers.Services
                 }
             }
         }
+
+        public bool WarningClubAlmostFull(int id)
+        {
+            Club club = _clubRepo.GetById(id);
+            if (club.Inside >= club.Capacity - club.Capacity / 10)
+            {
+                return false;
+            }
+            else return true;
+        }
+
+        public bool ClubFull(int id)
+        {
+            Club club = _clubRepo.GetById(id);
+            if (club.Inside == club.Capacity) return true;
+            else return false;
+        }
     }
 }
