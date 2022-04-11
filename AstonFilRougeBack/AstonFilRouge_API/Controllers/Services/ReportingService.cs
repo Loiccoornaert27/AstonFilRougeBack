@@ -18,17 +18,35 @@ namespace AstonFilRouge_API.Controllers.Services
             {
                 if(sub.ClubId == id)
                 {
-                    if (sub.BillingPeriod == 0)
+                    if (sub.BillingPeriod.ToString() == "Monthly")
                     {
                         revenues += sub.Price;
                     }
-                    else if(sub.BillingPeriod == 1)
+                    else if (sub.BillingPeriod.ToString() == "Annually")
                     {
                         revenues += sub.Price / 12;
                     }
                 }
             }
             return revenues;
+        }
+
+        public void UpdatePeopleInside(DateTime time)
+        {
+            IEnumerable<Reservation> resaList = _resaRepo.GetAll();
+            foreach(Reservation resa in resaList)
+            {
+                if(resa.Course.StartHour == time)
+                {
+                    Club club = _clubRepo.GetById(resa.Course.ClubId);
+                    club.Inside++;
+                }
+                if(resa.Course.EndHour == time)
+                {
+                    Club club = _clubRepo.GetById(resa.Course.ClubId);
+                    club.Inside--;
+                }
+            }
         }
     }
 }
