@@ -9,6 +9,7 @@ namespace AstonFilRouge_API.Controllers.Services
         private IRepository<Subscription> _subRepo;
         private IRepository<Club> _clubRepo;
 
+        //Fonction qui calcule le chiffre d'affaire d'une salle par mois
         public int GetMonthlyRevenues(int id)
         {
             Club club = _clubRepo.GetById(id);
@@ -31,13 +32,15 @@ namespace AstonFilRouge_API.Controllers.Services
             return revenues;
         }
 
+
+        //Fonction qui va modifier le contenu de inside dans les différents clubs en fonction du temps
         public void UpdatePeopleInside(DateTime time)
         {
             IEnumerable<Reservation> resaList = _resaRepo.GetAll();
             foreach(Reservation resa in resaList)
             {
                 Club club = _clubRepo.GetById(resa.Course.ClubId);
-                if (resa.Course.StartHour == time && !ClubFull(club.Id))
+                if (resa.Course.StartHour == time && !ClubFull(club.Id, time))
                 {   
                     club.Inside++;
                 }
@@ -48,6 +51,7 @@ namespace AstonFilRouge_API.Controllers.Services
             }
         }
 
+        //Fonction qui va calculer le nombre de gens dans une salle en fonction des reservations
         public int GetInsidePerHour(int id,DateTime time)
         {
             IEnumerable<Reservation> resaList = _resaRepo.GetAll();
@@ -63,16 +67,18 @@ namespace AstonFilRouge_API.Controllers.Services
             return sum;
         }
 
-        public bool WarningClubAlmostFull(int id)
-        {
-            Club club = _clubRepo.GetById(id);
-            if (club.Inside >= club.Capacity - club.Capacity / 10)
-            {
-                return false;
-            }
-            else return true;
-        }
+        //public bool WarningClubAlmostFull(int id)
+        //{
+        //    Club club = _clubRepo.GetById(id);
+        //    if (club.Inside >= club.Capacity - club.Capacity / 10)
+        //    {
+        //        return false;
+        //    }
+        //    else return true;
+        //}
 
+
+        //Fonction qui calcule si un club est plein à une heure donnée
         public bool ClubFull(int id, DateTime time)
         {
             Club club = _clubRepo.GetById(id);
