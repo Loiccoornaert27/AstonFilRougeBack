@@ -16,10 +16,10 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult CreateNewUser([FromForm] User newUser, IFormFile? picture)
+        public IActionResult CreateNewUser(User newUser/*, IFormFile? picture*/)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var added = _userRepo.Add(newUser, picture);
+            var added = _userRepo.Add(newUser/*, picture*/);
             if (added != null)
             {
                 return Ok(new
