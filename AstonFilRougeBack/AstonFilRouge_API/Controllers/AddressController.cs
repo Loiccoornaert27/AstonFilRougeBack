@@ -16,7 +16,7 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult CreateNewAddress([FromForm] Address newAddress)
+        public IActionResult CreateNewAddress(Address newAddress)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var added = _addressRepo.Add(newAddress);

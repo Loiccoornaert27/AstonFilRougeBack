@@ -21,7 +21,7 @@ namespace AstonFilRouge_API.Controllers
         public IActionResult CreateNewClub([FromForm] Club newClub)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var added = _clubRepo.Add(newClub)
+            var added = _clubRepo.Add(newClub);
             if (added != null)
             {
                 return Ok(new

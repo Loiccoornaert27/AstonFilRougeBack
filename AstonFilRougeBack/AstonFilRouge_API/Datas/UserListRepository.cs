@@ -21,7 +21,10 @@ namespace AstonFilRouge_API.Datas
 
         public User Add(User entity)
         {
-            throw new NotImplementedException();
+            _context.UserList.Add(entity);
+
+            if (_context.SaveChanges() > 0) return GetById(entity.Id);
+            return null;
         }
 
         public bool Delete(int id)
