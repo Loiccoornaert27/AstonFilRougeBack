@@ -31,13 +31,13 @@ namespace AstonFilRouge_API.Controllers
             {
                 Message = "La séance est complète"
             });
-            
-            if (_resaRepo.Add(newResa) != null)
+            var added = _resaRepo.Add(newResa);
+            if (added != null)
             {
                 return Ok(new
                 {
                     Message = "Nouvelle réservation ajoutée avec succès.",
-                    ReservationId = newResa.Id
+                    ReservationId = added.Id
                 });
             }
             else
