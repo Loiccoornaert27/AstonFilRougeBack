@@ -10,9 +10,17 @@ namespace AstonFilRouge_API.Datas
         {
         }
 
-        public User Add(User entity, IFormFile picture)
+        public User Add(User entity, IFormFile? picture)
         {
-            entity.AvatarUrl = _uploadPic.UploadPicture(picture,"UsersAvatarList");
+            if(picture== null)
+            {
+                entity.AvatarUrl = "default";
+            }
+            else
+            {
+                entity.AvatarUrl = _uploadPic.UploadPicture(picture, "UsersAvatarList");
+            }
+            
             _context.UserList.Add(entity);
 
             if (_context.SaveChanges() > 0) return GetById(entity.Id);
@@ -21,7 +29,11 @@ namespace AstonFilRouge_API.Datas
 
         public User Add(User entity)
         {
-            throw new NotImplementedException();
+            entity.AvatarUrl = "default";   
+            _context.UserList.Add(entity);
+
+            if (_context.SaveChanges() > 0) return GetById(entity.Id);
+            return null;
         }
 
         public bool Delete(int id)
