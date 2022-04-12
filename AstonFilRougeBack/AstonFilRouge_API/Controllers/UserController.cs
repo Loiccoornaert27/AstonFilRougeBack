@@ -24,7 +24,7 @@ namespace AstonFilRouge_API.Controllers
                 return Ok(new
                 {
                     Message = "New user added with success",
-                    UserId = newUser.Id,
+                    UserId = newUser.Id
                 });
             }
             else
