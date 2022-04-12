@@ -33,6 +33,11 @@ namespace AstonFilRouge_API.Datas
             return _context.SubscriptionList;
         }
 
+        public Subscription GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public Subscription GetById(int id)
         {
             return _context.SubscriptionList.FirstOrDefault(x => x.Id == id);
