@@ -33,6 +33,11 @@ namespace AstonFilRouge_API.Datas
             return _context.AddressList;
         }
 
+        public Address GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public Address GetById(int id)
         {
             return _context.AddressList.FirstOrDefault(x => x.Id == id);

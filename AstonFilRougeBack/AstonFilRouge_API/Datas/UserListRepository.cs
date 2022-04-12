@@ -36,6 +36,11 @@ namespace AstonFilRouge_API.Datas
             return _context.UserList;
         }
 
+        public User GetByEmail(string email)
+        {
+            return _context.UserList.FirstOrDefault(x => x.Email == email);
+        }
+
         public User GetById(int id)
         {
             return _context.UserList.FirstOrDefault(x => x.Id == id);

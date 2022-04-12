@@ -33,6 +33,11 @@ namespace AstonFilRouge_API.Datas
             return _context.ReservationList;
         }
 
+        public Reservation GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public Reservation GetById(int id)
         {
             return _context.ReservationList.FirstOrDefault(x => x.Id == id);
