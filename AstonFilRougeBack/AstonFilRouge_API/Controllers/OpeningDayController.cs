@@ -21,12 +21,13 @@ namespace AstonFilRouge_API.Controllers
         public IActionResult CreateNewOpeningDay([FromForm] OpeningDay newOD)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (_odRepo.Add(newOD) != null)
+            var added = _odRepo.Add(newOD);
+            if (added != null)
             {
                 return Ok(new
                 {
                     Message = "Journée d'ouverture ajoutée avec succès.",
-                    OpeningDayId= newOD.Id
+                    OpeningDayId= added.Id
                 });
             }
             else

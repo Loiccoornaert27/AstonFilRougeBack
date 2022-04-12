@@ -19,12 +19,13 @@ namespace AstonFilRouge_API.Controllers
         public IActionResult CreateNewSubscription([FromForm] Subscription newSub)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (_subRepo.Add(newSub) != null)
+            var added = _subRepo.Add(newSub);
+            if (added != null)
             {
                 return Ok(new
                 {
                     Message = "Nouvel abonnement ajouté avec succès.",
-                    SubscriptionId = newSub.Id
+                    SubscriptionId = added.Id
                 });
             }
             else

@@ -21,12 +21,13 @@ namespace AstonFilRouge_API.Controllers
         public IActionResult CreateNewCourse([FromForm] Course newCourse)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (_courseRepo.Add(newCourse) != null)
+            var added = _courseRepo.Add(newCourse);
+            if (added != null)
             {
                 return Ok(new
                 {
                     Message = "Nouvelle séance ajoutée avec succès.",
-                    CourseId = newCourse.Id
+                    CourseId = added.Id
                 });
             }
             else
