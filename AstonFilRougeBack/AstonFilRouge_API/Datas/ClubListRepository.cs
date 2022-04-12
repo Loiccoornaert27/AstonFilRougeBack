@@ -33,6 +33,11 @@ namespace AstonFilRouge_API.Datas
             return _context.ClubList;
         }
 
+        public Club GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public Club GetById(int id)
         {
             return _context.ClubList.FirstOrDefault(x => x.Id == id);

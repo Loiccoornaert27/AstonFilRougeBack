@@ -33,6 +33,11 @@ namespace AstonFilRouge_API.Datas
             return _context.CourseList;
         }
 
+        public Course GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public Course GetById(int id)
         {
             return _context.CourseList.FirstOrDefault(x => x.Id == id);

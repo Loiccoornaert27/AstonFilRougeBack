@@ -67,7 +67,7 @@ namespace AstonFilRouge_API.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Inside")
+                    b.Property<int>("Inside")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -275,7 +275,7 @@ namespace AstonFilRouge_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Role")
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")

@@ -33,6 +33,11 @@ namespace AstonFilRouge_API.Datas
             return _context.OpeningDayList;
         }
 
+        public OpeningDay GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
         public OpeningDay GetById(int id)
         {
             return _context.OpeningDayList.FirstOrDefault(x => x.Id == id);

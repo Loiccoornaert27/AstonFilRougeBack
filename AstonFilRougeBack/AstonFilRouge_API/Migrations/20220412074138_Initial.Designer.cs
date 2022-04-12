@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AstonFilRouge_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220408141956_Initial")]
+    [Migration("20220412074138_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,7 +69,7 @@ namespace AstonFilRouge_API.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Inside")
+                    b.Property<int>("Inside")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -277,7 +277,7 @@ namespace AstonFilRouge_API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Role")
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")

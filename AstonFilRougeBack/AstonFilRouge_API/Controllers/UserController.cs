@@ -60,6 +60,24 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
+        [HttpGet("get/{email}")]
+        public IActionResult GetUSerByEmail(string email)
+        {
+            User found = _userRepo.GetByEmail(email);
+            if (found == null)
+            {
+                return NotFound(new
+                {
+                    Message = "Aucun utilisateur avec cet E-Mail n'a été trouvé"
+                });
+            }
+            return Ok(new
+            {
+                Message = "User found",
+                User = found
+            });
+        }
+
         [HttpPatch("update/{id}")]
         public IActionResult EditUser(int id, [FromForm] User editedUser, IFormFile? picture)
         {
