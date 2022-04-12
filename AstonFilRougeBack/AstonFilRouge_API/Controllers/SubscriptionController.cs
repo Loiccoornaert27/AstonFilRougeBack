@@ -23,7 +23,8 @@ namespace AstonFilRouge_API.Controllers
             {
                 return Ok(new
                 {
-                    Message = "Nouvel abonnement ajouté avec succès."
+                    Message = "Nouvel abonnement ajouté avec succès.",
+                    SubscriptionId = newSub.Id
                 });
             }
             else

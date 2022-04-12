@@ -25,7 +25,8 @@ namespace AstonFilRouge_API.Controllers
             {
                 return Ok(new
                 {
-                    Message = "Nouveau club ajouté avec succès."
+                    Message = "Nouveau club ajouté avec succès.",
+                    ClubId = newClub.Id
                 });
             }
             else

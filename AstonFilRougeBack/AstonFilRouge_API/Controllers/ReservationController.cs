@@ -36,7 +36,8 @@ namespace AstonFilRouge_API.Controllers
             {
                 return Ok(new
                 {
-                    Message = "Nouvelle réservation ajoutée avec succès."
+                    Message = "Nouvelle réservation ajoutée avec succès.",
+                    ReservationId = newResa.Id
                 });
             }
             else

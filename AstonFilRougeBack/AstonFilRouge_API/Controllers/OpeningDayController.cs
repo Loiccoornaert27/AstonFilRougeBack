@@ -25,7 +25,8 @@ namespace AstonFilRouge_API.Controllers
             {
                 return Ok(new
                 {
-                    Message = "Journée d'ouverture ajoutée avec succès."
+                    Message = "Journée d'ouverture ajoutée avec succès.",
+                    OpeningDayId= newOD.Id
                 });
             }
             else
