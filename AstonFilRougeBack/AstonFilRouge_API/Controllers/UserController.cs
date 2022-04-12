@@ -1,4 +1,6 @@
-﻿using AstonFilRouge_API.Datas;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using AstonFilRouge_API.Datas;
 using AstonFilRouge_API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,18 +18,19 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult CreateNewUser(User newUser, IFormFile? picture)
+        public IActionResult CreateNewUser(User newUser/*, IFormFile? picture*/)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            User added;
-            if (picture == null)
-            {
-                added = _userRepo.Add(newUser);
-            }
-            else
-            {
-                added = _userRepo.Add(newUser, picture );
-            }
+            //User added;
+            //if (picture == null)
+            //{
+            //    added = _userRepo.Add(newUser);
+            //}
+            //else
+            //{
+            //    added = _userRepo.Add(newUser, picture);
+            //}
+            User added = _userRepo.Add(newUser);
             if (added != null)
             {
                 return Ok(new
