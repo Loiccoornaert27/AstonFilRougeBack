@@ -25,7 +25,8 @@ namespace AstonFilRouge_API.Controllers
             {
                 return Ok(new
                 {
-                    Message = "Nouvelle séance ajoutée avec succès."
+                    Message = "Nouvelle séance ajoutée avec succès.",
+                    CourseId = newCourse.Id
                 });
             }
             else

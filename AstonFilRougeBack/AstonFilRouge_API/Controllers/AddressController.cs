@@ -23,7 +23,8 @@ namespace AstonFilRouge_API.Controllers
             {
                 return Ok(new
                 {
-                    Message = "Nouvelle addresse ajoutée avec succès."
+                    Message = "Nouvelle addresse ajoutée avec succès.",
+                    AddressId = newAddress.Id
                 });
             }
             else
