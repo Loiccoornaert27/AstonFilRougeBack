@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using AstonFilRouge_API.Datas;
+﻿using AstonFilRouge_API.Datas;
 using AstonFilRouge_API.Models;
 using Microsoft.AspNetCore.Mvc;
 
