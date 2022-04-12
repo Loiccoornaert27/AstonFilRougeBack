@@ -43,7 +43,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("get/{id}")]
+        [HttpGet("getbyid/{id}")]
         public IActionResult GetUserById(int id)
         {
             User found = _userRepo.GetById(id);
@@ -61,7 +61,7 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
-        [HttpGet("get/{email}")]
+        [HttpGet("getbyemail/{email}")]
         public IActionResult GetUSerByEmail(string email)
         {
             User found = _userRepo.GetByEmail(email);
