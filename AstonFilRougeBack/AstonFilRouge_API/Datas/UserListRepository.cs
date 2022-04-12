@@ -14,7 +14,7 @@ namespace AstonFilRouge_API.Datas
         {
             if(picture== null)
             {
-                entity.AvatarUrl = "default";
+                entity.AvatarUrl = "/assets/img/avatars/default_avatar.jpg";
             }
             else
             {
@@ -29,7 +29,7 @@ namespace AstonFilRouge_API.Datas
 
         public User Add(User entity)
         {
-            entity.AvatarUrl = "default";   
+            entity.AvatarUrl = "/assets/img/avatars/default_avatar.jpg";   
             _context.UserList.Add(entity);
 
             if (_context.SaveChanges() > 0) return GetById(entity.Id);
