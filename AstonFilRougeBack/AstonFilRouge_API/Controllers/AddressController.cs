@@ -19,12 +19,13 @@ namespace AstonFilRouge_API.Controllers
         public IActionResult CreateNewAddress([FromForm] Address newAddress)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (_addressRepo.Add(newAddress) != null)
+            var added = _addressRepo.Add(newAddress);
+            if (added != null)
             {
                 return Ok(new
                 {
                     Message = "Nouvelle addresse ajoutée avec succès.",
-                    AddressId = newAddress.Id
+                    AddressId = added.Id
                 });
             }
             else
