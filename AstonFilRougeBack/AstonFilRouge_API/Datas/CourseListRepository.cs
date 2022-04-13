@@ -38,7 +38,7 @@ namespace AstonFilRouge_API.Datas
             List<Course> courseList = new List<Course>();
             foreach (var course in _context.CourseList)
             {
-                if(course.Date >= date && course.Type == 0)
+                if(course.Date >= date)
                 {
                     courseList.Add(course);
                 }
