@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AstonFilRouge_API.Controllers.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddScoped<IRepository<Course>, CourseListRepository>();
 builder.Services.AddScoped<IRepository<OpeningDay>, OpeningDayListRepository>();
 builder.Services.AddScoped<IRepository<Reservation>, ReservationListRepository>();
 builder.Services.AddScoped<IRepository<Subscription>, SubscriptionListRepository>();
+builder.Services.AddScoped<ReportingService>();
 
 builder.Services.AddCors(options => {
     options.AddPolicy("allConnections", builder =>
