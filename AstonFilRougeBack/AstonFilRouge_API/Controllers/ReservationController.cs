@@ -19,18 +19,18 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult CreateNewReservation([FromForm] Reservation newResa)
+        public IActionResult CreateNewReservation(Reservation newResa)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            //Empêche de créer une réservation si le club est complet
-            if (_report.ClubFull(newResa.Course.ClubId, newResa.RequestDate)) return BadRequest(new
-            {
-                Message = "Le club est complet à cette heure."
-            });
-            if (_report.CourseFull(newResa.Course.ClubId)) return BadRequest(new
-            {
-                Message = "La séance est complète"
-            });
+            // Empêche de créer une réservation si le club est complet
+            //if (_report.ClubFull(newResa.Course.ClubId, newResa.RequestDate)) return BadRequest(new
+            //{
+            //    Message = "Le club est complet à cette heure."
+            //});
+            //if (_report.CourseFull(newResa.Course.ClubId)) return BadRequest(new
+            //{
+            //    Message = "La séance est complète"
+            //});
             var added = _resaRepo.Add(newResa);
             if (added != null)
             {
