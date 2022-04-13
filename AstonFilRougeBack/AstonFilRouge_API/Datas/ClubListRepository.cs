@@ -33,6 +33,11 @@ namespace AstonFilRouge_API.Datas
             return _context.ClubList;
         }
 
+        public IEnumerable<Club> GetAllByDate(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
         public Club GetByEmail(string email)
         {
             throw new NotImplementedException();

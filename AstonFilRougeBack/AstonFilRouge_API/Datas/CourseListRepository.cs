@@ -33,6 +33,19 @@ namespace AstonFilRouge_API.Datas
             return _context.CourseList;
         }
 
+        public IEnumerable<Course> GetAllByDate(DateTime date)
+        {
+            List<Course> courseList = new List<Course>();
+            foreach (var course in _context.CourseList)
+            {
+                if(course.Date >= date)
+                {
+                    courseList.Add(course);
+                }
+            }
+            return courseList.AsEnumerable<Course>();
+        }
+
         public Course GetByEmail(string email)
         {
             throw new NotImplementedException();

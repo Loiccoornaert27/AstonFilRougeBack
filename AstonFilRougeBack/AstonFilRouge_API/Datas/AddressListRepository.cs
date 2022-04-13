@@ -33,6 +33,11 @@ namespace AstonFilRouge_API.Datas
             return _context.AddressList;
         }
 
+        public IEnumerable<Address> GetAllByDate(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
         public Address GetByEmail(string email)
         {
             throw new NotImplementedException();

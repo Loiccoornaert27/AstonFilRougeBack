@@ -8,6 +8,7 @@ namespace AstonFilRouge_API.Datas
         public T GetById(int id);
         public T GetByEmail(string email);
         public IEnumerable<T> GetAll();
+        public IEnumerable<T> GetAllByDate(DateTime date);
         public T Update(int id, T entity);
         public T Update(int id, T entity, IFormFile? picture);
         public bool Delete(int id);
