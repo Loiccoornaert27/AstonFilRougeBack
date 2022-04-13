@@ -47,8 +47,9 @@ namespace AstonFilRouge_API.Controllers
         }
 
         [HttpGet("getallbydate/{date}")]
-        public IActionResult GetAllCoursesByDate(DateTime date)
+        public IActionResult GetAllCoursesByDate()
         {
+            DateTime date = DateTime.Now;
             IEnumerable<Course> found = _courseRepo.GetAllByDate(date);
             if(found == null)
             {
