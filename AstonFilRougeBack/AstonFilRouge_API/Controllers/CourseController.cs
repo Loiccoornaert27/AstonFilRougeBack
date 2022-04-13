@@ -46,6 +46,23 @@ namespace AstonFilRouge_API.Controllers
             });
         }
 
+        [HttpGet("getallbydate/{date}")]
+        public IActionResult GetAllCoursesByDate(DateTime date)
+        {
+            IEnumerable<Course> found = _courseRepo.GetAllByDate(date);
+            if(found == null)
+            {
+                return NotFound(new
+                {
+                    Message = "Pas de séance disponible à ce jour"
+                });
+            }
+            return Ok(new
+            {
+                CourseList = found
+            });
+        }
+
         [HttpGet("get/{id}")]
         public IActionResult GetCourseById(int id)
         {

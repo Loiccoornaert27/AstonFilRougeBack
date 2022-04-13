@@ -33,6 +33,11 @@ namespace AstonFilRouge_API.Datas
             return _context.ReservationList;
         }
 
+        public IEnumerable<Reservation> GetAllByDate(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
         public Reservation GetByEmail(string email)
         {
             throw new NotImplementedException();

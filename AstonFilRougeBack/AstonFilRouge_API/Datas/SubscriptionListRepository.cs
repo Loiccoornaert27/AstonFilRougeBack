@@ -33,6 +33,11 @@ namespace AstonFilRouge_API.Datas
             return _context.SubscriptionList;
         }
 
+        public IEnumerable<Subscription> GetAllByDate(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
         public Subscription GetByEmail(string email)
         {
             throw new NotImplementedException();
