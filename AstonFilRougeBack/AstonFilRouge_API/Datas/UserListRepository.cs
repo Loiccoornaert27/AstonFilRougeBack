@@ -48,6 +48,11 @@ namespace AstonFilRouge_API.Datas
             return _context.UserList;
         }
 
+        public IEnumerable<User> GetAllByDate(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
         public User GetByEmail(string email)
         {
             return _context.UserList.FirstOrDefault(x => x.Email == email);

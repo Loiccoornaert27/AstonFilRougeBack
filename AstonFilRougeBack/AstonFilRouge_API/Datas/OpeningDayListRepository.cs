@@ -33,6 +33,11 @@ namespace AstonFilRouge_API.Datas
             return _context.OpeningDayList;
         }
 
+        public IEnumerable<OpeningDay> GetAllByDate(DateTime date)
+        {
+            throw new NotImplementedException();
+        }
+
         public OpeningDay GetByEmail(string email)
         {
             throw new NotImplementedException();
